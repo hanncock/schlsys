@@ -25,16 +25,15 @@ class _DrawwerState extends State<Drawwer> {
              ),
              child: Text('Drawer Header'),
            ),
-           Text('Drawwer 1'),
            ListTile(
              leading: Padding(
                padding: const EdgeInsets.all(8),
-               child: Icon(Icons.picture_as_pdf,color: Colors.white,)
+               child: Icon(Icons.school,color: Colors.white,)
              ),
-             title: Text('Documents',style: TextStyle(color: Colors.white)),
+             title: Text('School Management',style: TextStyle(color: Colors.white)),
              onTap: () {
                // Navigator.push(context, MaterialPageRoute(builder: (_) => Documents()));
-               Navigator.push(context, MaterialPageRoute(builder: (_) => MyApp()));
+               // Navigator.push(context, MaterialPageRoute(builder: (_) => MyApp()));
                // userData[1]['rights']['landlordStmt'] == 'NO' ? showAccess('Access Denied for Landlord Statement')
                //     :Navigator.push(context, MaterialPageRoute(builder: (_) => LandlordStatement()));
              },
@@ -46,7 +45,7 @@ class _DrawwerState extends State<Drawwer> {
              ),
              title: Text('Documents',style: TextStyle(color: Colors.white)),
              onTap: () {
-               Navigator.push(context, MaterialPageRoute(builder: (_) => MyHomePage()));
+               // Navigator.push(context, MaterialPageRoute(builder: (_) => MyHomePage()));
              },
            ),
            // ExpansionTile(

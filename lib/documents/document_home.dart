@@ -156,7 +156,7 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
 
   @override
   void initState() {
-    _currentPosition = widget.initPosition ?? 0;
+    _currentPosition = widget.initPosition ;
     controller = TabController(
       length: widget.itemCount,
       vsync: this,
@@ -219,7 +219,7 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    if (widget.itemCount < 1) return widget.stub ?? Container();
+    if (widget.itemCount < 1) return widget.stub ;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

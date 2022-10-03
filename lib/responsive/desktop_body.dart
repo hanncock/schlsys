@@ -65,6 +65,9 @@
 import 'package:flutter/material.dart';
 import 'package:web1/homepage.dart';
 import 'package:web1/responsive/tabBuiler.dart';
+import 'package:web1/school/exams.dart';
+import 'package:web1/school/schldash.dart';
+import 'package:web1/school/studentList.dart';
 
 import 'drawwer.dart';
 
@@ -74,33 +77,11 @@ class MyDesktopBody extends StatefulWidget {
   @override
   State<MyDesktopBody> createState() => _MyDesktopBodyState();
 }
-
+var width;
+var height;
 class _MyDesktopBodyState extends State<MyDesktopBody> with TickerProviderStateMixin{
 
-  // final int _startingTabCount = 1;
-  // List<Tab> _tabs = <Tab>[];
-  // List<Widget> _generalWidgets = <Widget>[];
-  //
-  // // final TabController _tabController = TabController(length: 3, vsync: this);
-  // late TabController _tabController;
-  // late int _currentCount;
-  // late int _currentPosition;
-  //
-  //
-  // @override
-  // void initState() {
-  //   _tabs = getTabs(_startingTabCount);
-  //   _tabController = getTabController();
-  //   super.initState();
-  // }
-  //
-  // @override
-  // void dispose() {
-  //   _tabController.dispose();
-  //   super.dispose();
-  // }
-
-  List<String> data = ['Page 0'];
+  List<String> data = ['Dashboard'];
   int initPosition = 0;
 
   @override
@@ -108,7 +89,8 @@ class _MyDesktopBodyState extends State<MyDesktopBody> with TickerProviderStateM
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    // print(height);
+    width = width;
+    height = height;
     return Scaffold(
         appBar: AppBar(
         title: Text('D E S K T O P',
@@ -119,808 +101,492 @@ class _MyDesktopBodyState extends State<MyDesktopBody> with TickerProviderStateM
         centerTitle: true,
           backgroundColor: Colors.blueGrey,
       ),
-        floatingActionButton:FloatingActionButton.extended(
+        floatingActionButton:FloatingActionButton(
           onPressed: (){},
-          label: Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    data.add('Page ${data.length}');
-                  });
-                },
-                 icon: Icon(Icons.add), //icon: null,
-              ),
-              IconButton(
-                onPressed: () {
-                  print('will remove');
-                  print(initPosition);
-                  // print(data.length - initPosition);
-                  setState(() {
-                    data.remove('Page ${initPosition}');
-                  });
-                },
-                icon: Icon(Icons.remove),
-              ),
-            ],
+          child: IconButton(
+            onPressed: () {
+              data[initPosition] == 'Dashboard' ? setState((){}):
+              setState(() {
+                data.remove(data[initPosition]);
+              });
+            },
+            icon: Icon(Icons.remove),
           ),
         ),
       drawer: Drawwer(),
       backgroundColor: Colors.grey[300],
-      body: Column(
-        children: [
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0,left: 8.0),
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            Card(
+                                color: Colors.grey[200],
+                                elevation: 2,
+                                child: ClipPath(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        RaisedButton(
+                                          color: Colors.grey[100],
+                                          onPressed: (){
+                                            if(data.contains('Home')){
 
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0,left: 8.0),
-                  child: Row(
-                    children: [
-                      Text('Home . '),
-                      Text('Will Display Location',
-                        style: TextStyle(
-                        fontWeight: FontWeight.bold
-                      ),)
-                    ],
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    width: width,
-                    height: height * 0.9,
-                    child: CustomTabView(
-                      initPosition: initPosition,
-                      itemCount: data.length,
-                      tabBuilder: (context, index) => Tab(text: data[index]),
-                      pageBuilder: (context, index) => Column(
-    children: [
-      data[index] != 4 ? Text('first value') : data[index] == 2 ? Text('second value'): Text('we have data')
-    //   switch(data[index]){
-    //   case 1:
-    //
-    //     break;
-    // }
-    //  data[index] == 1 ? Center(child:Text('soke')): new Text('values ${data[index]}')
-    ],
-    ),
-    // Center(
-    //                   //   child: ListView.builder(
-    //                   //       itemCount: 1,
-    //                   //       itemBuilder: (BuildContext context, int index) {
-    //                   //         print('this is thr index${index}');
-    //                   //         switch(index){
-    //                   //           case 1:{
-    //                   //             print('one selected');
-    //                   //             // return  Column(
-    //                   //             //   children: [
-    //                   //             //     Row(
-    //                   //             //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //                   //             //       // crossAxisAlignment: CrossAxisAlignment.end,
-    //                   //             //       children: [
-    //                   //             //         Padding(
-    //                   //             //           padding: const EdgeInsets.all(8.0),
-    //                   //             //           child: Row(
-    //                   //             //             children: [
-    //                   //             //               Card(
-    //                   //             //                 color: Colors.white,
-    //                   //             //                 elevation: 2,
-    //                   //             //                 child: ClipPath(
-    //                   //             //                   child: Container(
-    //                   //             //                     height: height * 0.2,
-    //                   //             //                     width: width / 4,
-    //                   //             //                     child: Padding(
-    //                   //             //                       padding: const EdgeInsets.all(8.0),
-    //                   //             //                       child: Center(
-    //                   //             //                         child: Row(
-    //                   //             //                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                   //             //                           crossAxisAlignment: CrossAxisAlignment.center,
-    //                   //             //                           children: [
-    //                   //             //                             Column(
-    //                   //             //                               children: [
-    //                   //             //                                 Icon(
-    //                   //             //                                   Icons.group,
-    //                   //             //                                   size: width * 0.05,
-    //                   //             //                                   color: Colors.brown,
-    //                   //             //                                 ),
-    //                   //             //                                 Text('Students')
-    //                   //             //                               ],
-    //                   //             //                             ),
-    //                   //             //
-    //                   //             //                             Divider(height: height * 0.5,color: Colors.red,),
-    //                   //             //                             Text('12,000',style: TextStyle(
-    //                   //             //                                 fontSize: width * 0.03
-    //                   //             //                             ),)
-    //                   //             //
-    //                   //             //                           ],
-    //                   //             //                         ),
-    //                   //             //                       ),
-    //                   //             //                     ),
-    //                   //             //                     decoration: BoxDecoration(
-    //                   //             //                         border: Border(right: BorderSide(color: Colors.brown, width: 5))),
-    //                   //             //                   ),
-    //                   //             //                   clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-    //                   //             //                       borderRadius: BorderRadius.circular(3))),
-    //                   //             //                 ),
-    //                   //             //               ),
-    //                   //             //               // SizedBox(width: width * 0.04,),
-    //                   //             //               Card(
-    //                   //             //                 color: Colors.white,
-    //                   //             //                 elevation: 2,
-    //                   //             //                 child: ClipPath(
-    //                   //             //                   child: Container(
-    //                   //             //                     height: height * 0.2,
-    //                   //             //                     width: width / 4,
-    //                   //             //                     child: Padding(
-    //                   //             //                       padding: const EdgeInsets.all(8.0),
-    //                   //             //                       child: Center(
-    //                   //             //                         child: Row(
-    //                   //             //                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                   //             //                           crossAxisAlignment: CrossAxisAlignment.center,
-    //                   //             //                           children: [
-    //                   //             //                             Column(
-    //                   //             //                               children: [
-    //                   //             //                                 Icon(
-    //                   //             //                                   Icons.groups,
-    //                   //             //                                   size: width * 0.05,
-    //                   //             //                                   color: Colors.blue,
-    //                   //             //                                 ),
-    //                   //             //                                 Text('Teachers')
-    //                   //             //                               ],
-    //                   //             //                             ),
-    //                   //             //
-    //                   //             //                             Divider(height: height * 0.5,color: Colors.red,),
-    //                   //             //                             Text('12,000',style: TextStyle(
-    //                   //             //                                 fontSize: width * 0.03
-    //                   //             //                             ),)
-    //                   //             //
-    //                   //             //                           ],
-    //                   //             //                         ),
-    //                   //             //                       ),
-    //                   //             //                     ),
-    //                   //             //                     decoration: BoxDecoration(
-    //                   //             //                         border: Border(right: BorderSide(color: Colors.blue, width: 5))),
-    //                   //             //                   ),
-    //                   //             //                   clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-    //                   //             //                       borderRadius: BorderRadius.circular(3))),
-    //                   //             //                 ),
-    //                   //             //               ),
-    //                   //             //               // SizedBox(width: width * 0.04,),
-    //                   //             //               Card(
-    //                   //             //                 color: Colors.white,
-    //                   //             //                 elevation: 2,
-    //                   //             //                 child: ClipPath(
-    //                   //             //                   child: Container(
-    //                   //             //                     height: height * 0.2,
-    //                   //             //                     width: width / 4,
-    //                   //             //                     child: Padding(
-    //                   //             //                       padding: const EdgeInsets.all(8.0),
-    //                   //             //                       child: Center(
-    //                   //             //                         child: Row(
-    //                   //             //                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                   //             //                           crossAxisAlignment: CrossAxisAlignment.center,
-    //                   //             //                           children: [
-    //                   //             //                             Column(
-    //                   //             //                               children: [
-    //                   //             //                                 Icon(
-    //                   //             //                                   Icons.person_add_alt_1_sharp,
-    //                   //             //                                   size: width * 0.05,
-    //                   //             //                                   color: Colors.red,
-    //                   //             //                                 ),
-    //                   //             //                                 Text('Parents')
-    //                   //             //                               ],
-    //                   //             //                             ),
-    //                   //             //
-    //                   //             //                             Divider(height: height * 0.5,color: Colors.red,),
-    //                   //             //                             Text('12,000',style: TextStyle(
-    //                   //             //                                 fontSize: width * 0.03
-    //                   //             //                             ),)
-    //                   //             //
-    //                   //             //                           ],
-    //                   //             //                         ),
-    //                   //             //                       ),
-    //                   //             //                     ),
-    //                   //             //                     decoration: BoxDecoration(
-    //                   //             //                         border: Border(right: BorderSide(color: Colors.red, width: 5))),
-    //                   //             //                   ),
-    //                   //             //                   clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-    //                   //             //                       borderRadius: BorderRadius.circular(3))),
-    //                   //             //                 ),
-    //                   //             //               ),
-    //                   //             //               // SizedBox(width: width * 0.04,),
-    //                   //             //               Card(
-    //                   //             //                 color: Colors.white,
-    //                   //             //                 elevation: 2,
-    //                   //             //                 child: ClipPath(
-    //                   //             //                   child: Container(
-    //                   //             //                     height: height * 0.2,
-    //                   //             //                     width: width / 5,
-    //                   //             //                     child: Padding(
-    //                   //             //                       padding: const EdgeInsets.all(8.0),
-    //                   //             //                       child: Center(
-    //                   //             //                         child: Row(
-    //                   //             //                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                   //             //                           crossAxisAlignment: CrossAxisAlignment.center,
-    //                   //             //                           children: [
-    //                   //             //                             Column(
-    //                   //             //                               children: [
-    //                   //             //                                 Icon(
-    //                   //             //                                   Icons.monetization_on_outlined,
-    //                   //             //                                   size: width * 0.05,
-    //                   //             //                                   color: Colors.green,
-    //                   //             //                                 ),
-    //                   //             //                                 Text('Finance')
-    //                   //             //                               ],
-    //                   //             //                             ),
-    //                   //             //                             Divider(height: height * 0.5,color: Colors.red,),
-    //                   //             //                             Text('12,000',style: TextStyle(
-    //                   //             //                                 fontSize: width * 0.03
-    //                   //             //                             ),)
-    //                   //             //                           ],
-    //                   //             //                         ),
-    //                   //             //                       ),
-    //                   //             //                     ),
-    //                   //             //                     decoration: BoxDecoration(
-    //                   //             //                         border: Border(right: BorderSide(color: Colors.green, width: 5))),
-    //                   //             //                   ),
-    //                   //             //                   clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-    //                   //             //                       borderRadius: BorderRadius.circular(3))),
-    //                   //             //                 ),
-    //                   //             //               ),
-    //                   //             //             ],
-    //                   //             //           ),
-    //                   //             //         ),
-    //                   //             //       ],
-    //                   //             //     ),
-    //                   //             //     Row(
-    //                   //             //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //                   //             //       crossAxisAlignment: CrossAxisAlignment.start,
-    //                   //             //       children: [
-    //                   //             //         Card(
-    //                   //             //             color: Colors.white,
-    //                   //             //             elevation: 2,
-    //                   //             //             child: ClipPath(
-    //                   //             //                 child: Container(
-    //                   //             //                     height: height * 0.3,
-    //                   //             //                     width: width /2.5,
-    //                   //             //                     child: Padding(padding: EdgeInsets.all(8.0),
-    //                   //             //                         child: Column(
-    //                   //             //                           children: [
-    //                   //             //                             Padding(
-    //                   //             //                               padding: const EdgeInsets.all(8.0),
-    //                   //             //                               child: Row(
-    //                   //             //                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //                   //             //                                 children: [
-    //                   //             //                                   Text(
-    //                   //             //                                     'Collection & Expenses',
-    //                   //             //                                     textAlign: TextAlign.center,
-    //                   //             //                                     style: TextStyle(
-    //                   //             //                                       color: Colors.black45,
-    //                   //             //                                       fontWeight: FontWeight.bold,
-    //                   //             //                                     ),
-    //                   //             //                                   ),
-    //                   //             //                                   SizedBox(width: width * 0.1,),
-    //                   //             //                                   Row(
-    //                   //             //                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                   //             //                                     children: [
-    //                   //             //                                       Icon(Icons.arrow_drop_down,color: Colors.green,),
-    //                   //             //                                       SizedBox(width: width * 0.01,),
-    //                   //             //                                       Icon(Icons.refresh,color: Colors.blue,),
-    //                   //             //                                       SizedBox(width: width * 0.01,),
-    //                   //             //                                       Icon(Icons.cancel,color: Colors.redAccent,),
-    //                   //             //                                     ],
-    //                   //             //                                   ),
-    //                   //             //
-    //                   //             //                                 ],
-    //                   //             //                               ),
-    //                   //             //                             ),
-    //                   //             //                             Divider(height: height * 0.02,),
-    //                   //             //                             Text('Chart Goes Here ${width /3}')
-    //                   //             //                           ],
-    //                   //             //                         )
-    //                   //             //
-    //                   //             //                     )
-    //                   //             //                 )
-    //                   //             //             )
-    //                   //             //         ),
-    //                   //             //         Card(
-    //                   //             //             color: Colors.white,
-    //                   //             //             elevation: 2,
-    //                   //             //             child: ClipPath(
-    //                   //             //                 child: Container(
-    //                   //             //                     height: height * 0.6,
-    //                   //             //                     width: width /3.5,
-    //                   //             //                     child: Padding(padding: EdgeInsets.all(8.0),
-    //                   //             //                         child: Column(
-    //                   //             //                           children: [
-    //                   //             //                             Padding(
-    //                   //             //                               padding: const EdgeInsets.all(8.0),
-    //                   //             //                               child: Row(
-    //                   //             //                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //                   //             //                                 children: [
-    //                   //             //                                   Text(
-    //                   //             //                                     'Notice Board',
-    //                   //             //                                     textAlign: TextAlign.center,
-    //                   //             //                                     style: TextStyle(
-    //                   //             //                                       color: Colors.black45,
-    //                   //             //                                       fontWeight: FontWeight.bold,
-    //                   //             //                                     ),
-    //                   //             //                                   ),
-    //                   //             //                                 ],
-    //                   //             //                               ),
-    //                   //             //                             ),
-    //                   //             //                             Divider(height: height * 0.02,),
-    //                   //             //                             Text('Text Goes Here${width /4}')
-    //                   //             //                           ],
-    //                   //             //                         )
-    //                   //             //
-    //                   //             //                     )
-    //                   //             //                 )
-    //                   //             //             )
-    //                   //             //         ),
-    //                   //             //         Card(
-    //                   //             //             color: Colors.white,
-    //                   //             //             elevation: 2,
-    //                   //             //             child: ClipPath(
-    //                   //             //                 child: Container(
-    //                   //             //                     height: height * 0.6,
-    //                   //             //                     width: width /3.5,
-    //                   //             //                     child: Padding(padding: EdgeInsets.all(8.0),
-    //                   //             //                         child: Column(
-    //                   //             //                           children: [
-    //                   //             //                             Padding(
-    //                   //             //                               padding: const EdgeInsets.all(8.0),
-    //                   //             //                               child: Row(
-    //                   //             //                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //                   //             //                                 children: [
-    //                   //             //                                   Text(
-    //                   //             //                                     'Recent Activities',
-    //                   //             //                                     textAlign: TextAlign.center,
-    //                   //             //                                     style: TextStyle(
-    //                   //             //                                       color: Colors.black45,
-    //                   //             //                                       fontWeight: FontWeight.bold,
-    //                   //             //                                     ),
-    //                   //             //                                   ),
-    //                   //             //                                 ],
-    //                   //             //                               ),
-    //                   //             //                             ),
-    //                   //             //                             Divider(height: height * 0.02,),
-    //                   //             //                             Text('Text Goes Here ${width /4}')
-    //                   //             //                           ],
-    //                   //             //                         )
-    //                   //             //
-    //                   //             //                     )
-    //                   //             //                 )
-    //                   //             //             )
-    //                   //             //         ),
-    //                   //             //
-    //                   //             //       ],
-    //                   //             //     ),
-    //                   //             //   ],
-    //                   //             // );
-    //                   //           }
-    //                   //           break;
-    //                   //
-    //                   //         }
-    //                   //         return Card();
-    //                   //       }
-    //                   //   ),
-    //                   // ),
-    //                   child: ListView.builder(
-    //                     itemCount: data.length,
-    //                       itemBuilder: if(){}(context, int index){
-    //                         return Text('${data [index]}');
-    //                       })
-    //                   ),
-                      onPositionChange: (index){
-                        // print('current position: $index');
-                        initPosition = index;
-                      },
-                      onScroll: (position) => print('$position'), stub: Container(),
+                                            }else{
+                                              setState(() {
+                                                data.add('Home');
+                                              });
+                                              // print('current position: $index');
+                                              initPosition = int.parse("Home");
+                                              setState((){});
+                                            }
+
+                                          },
+                                            child:  Text('Home'),
+                                        ),
+                                        RaisedButton(
+                                          color: Colors.grey[100],
+                                          onPressed: (){
+                                            if(data.contains('Student')){
+
+                                            }else{
+                                              setState(() {
+                                                data.add('Student');
+                                              });
+                                              initPosition = int.parse("Student");
+                                              setState((){});
+                                            }
+
+                                          },
+                                          child:  Text('Student'),
+                                        ),
+                                        RaisedButton(
+                                          color: Colors.grey[100],
+                                          onPressed: (){
+                                            if(data.contains('Exams')){
+                                              CustomTabView(
+                                                initPosition: initPosition,
+                                                itemCount: data.length,
+                                                tabBuilder: (context, initPosition) => Tab(text: data[initPosition]),
+                                                pageBuilder: (context, initPosition) => Text('its page ${data[initPosition]}'),
+                                                stub: Container(),
+                                                onScroll: (double value) {  },
+                                                onPositionChange: (int value) {  }
+
+                                              );
+                                            }else{
+                                              setState(() {
+                                                data.add('Exams');
+                                              });
+                                              CustomTabView(
+                                                  initPosition: initPosition,
+                                                  itemCount: data.length,
+                                                  tabBuilder: (context, initPosition) => Tab(text: data[initPosition]),
+                                                  pageBuilder: (context, initPosition) => Text('its page ${data[initPosition]}'),
+                                                  stub: Container(),
+                                                  onScroll: (double value) {  },
+                                                  onPositionChange: (int value) {  }
+
+                                              );
+                                              // print('current position: $index');
+                                              initPosition = int.parse("Exams");
+                                              print('this is the position${initPosition}');
+                                              setState((){});
+                                            }
+
+                                          },
+                                          child:  Text('Exams'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  // child: Container(
-                  //   width: 400,
-                  //   // height: 50,
-                  //   child: Align(
-                  //     alignment: Alignment.centerLeft,
-                  //     child: TabBar(
-                  //         controller: _tabController,
-                  //       isScrollable: true,
-                  //       labelColor: Colors.black,
-                  //         indicator: BoxDecoration(
-                  //           color: Colors.grey[300],
-                  //           borderRadius: BorderRadius.circular(5.0)
-                  //         ),
-                  //         // labelPadding: EdgeInsets.only(left: 8.0,right: 8.0),
-                  //         unselectedLabelColor: Colors.grey,
-                  //       tabs: _tabs,
-                  //         // tabs: [
-                  //         //   Tab(text:"Soke"),
-                  //         //   Tab(text: 'soke2',),
-                  //         // ]
-                  //     ),
-                  //   ),
-                  // ),
-                ),
-              ],
-            ),
-          // Expanded(
-          //   child: TabBarView(
-          //       controller: _tabController,
-          //     children: getWidgets(),
-          //       // children: [
-          //       //   Column(
-          //       //     children: [
-          //       //       Row(
-          //       //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       //         // crossAxisAlignment: CrossAxisAlignment.end,
-          //       //         children: [
-          //       //           Padding(
-          //       //             padding: const EdgeInsets.all(8.0),
-          //       //             child: Row(
-          //       //               children: [
-          //       //                 Card(
-          //       //                   color: Colors.white,
-          //       //                   elevation: 2,
-          //       //                   child: ClipPath(
-          //       //                     child: Container(
-          //       //                       height: height * 0.2,
-          //       //                       width: width / 4,
-          //       //                       child: Padding(
-          //       //                         padding: const EdgeInsets.all(8.0),
-          //       //                         child: Center(
-          //       //                           child: Row(
-          //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //       //                             crossAxisAlignment: CrossAxisAlignment.center,
-          //       //                             children: [
-          //       //                               Column(
-          //       //                                 children: [
-          //       //                                   Icon(
-          //       //                                     Icons.group,
-          //       //                                     size: width * 0.05,
-          //       //                                     color: Colors.brown,
-          //       //                                   ),
-          //       //                                   Text('Students')
-          //       //                                 ],
-          //       //                               ),
-          //       //
-          //       //                               Divider(height: height * 0.5,color: Colors.red,),
-          //       //                               Text('12,000',style: TextStyle(
-          //       //                                   fontSize: width * 0.03
-          //       //                               ),)
-          //       //
-          //       //                             ],
-          //       //                           ),
-          //       //                         ),
-          //       //                       ),
-          //       //                       decoration: BoxDecoration(
-          //       //                           border: Border(right: BorderSide(color: Colors.brown, width: 5))),
-          //       //                     ),
-          //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-          //       //                         borderRadius: BorderRadius.circular(3))),
-          //       //                   ),
-          //       //                 ),
-          //       //                 // SizedBox(width: width * 0.04,),
-          //       //                 Card(
-          //       //                   color: Colors.white,
-          //       //                   elevation: 2,
-          //       //                   child: ClipPath(
-          //       //                     child: Container(
-          //       //                       height: height * 0.2,
-          //       //                       width: width / 4,
-          //       //                       child: Padding(
-          //       //                         padding: const EdgeInsets.all(8.0),
-          //       //                         child: Center(
-          //       //                           child: Row(
-          //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //       //                             crossAxisAlignment: CrossAxisAlignment.center,
-          //       //                             children: [
-          //       //                               Column(
-          //       //                                 children: [
-          //       //                                   Icon(
-          //       //                                     Icons.groups,
-          //       //                                     size: width * 0.05,
-          //       //                                     color: Colors.blue,
-          //       //                                   ),
-          //       //                                   Text('Teachers')
-          //       //                                 ],
-          //       //                               ),
-          //       //
-          //       //                               Divider(height: height * 0.5,color: Colors.red,),
-          //       //                               Text('12,000',style: TextStyle(
-          //       //                                   fontSize: width * 0.03
-          //       //                               ),)
-          //       //
-          //       //                             ],
-          //       //                           ),
-          //       //                         ),
-          //       //                       ),
-          //       //                       decoration: BoxDecoration(
-          //       //                           border: Border(right: BorderSide(color: Colors.blue, width: 5))),
-          //       //                     ),
-          //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-          //       //                         borderRadius: BorderRadius.circular(3))),
-          //       //                   ),
-          //       //                 ),
-          //       //                 // SizedBox(width: width * 0.04,),
-          //       //                 Card(
-          //       //                   color: Colors.white,
-          //       //                   elevation: 2,
-          //       //                   child: ClipPath(
-          //       //                     child: Container(
-          //       //                       height: height * 0.2,
-          //       //                       width: width / 4,
-          //       //                       child: Padding(
-          //       //                         padding: const EdgeInsets.all(8.0),
-          //       //                         child: Center(
-          //       //                           child: Row(
-          //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //       //                             crossAxisAlignment: CrossAxisAlignment.center,
-          //       //                             children: [
-          //       //                               Column(
-          //       //                                 children: [
-          //       //                                   Icon(
-          //       //                                     Icons.person_add_alt_1_sharp,
-          //       //                                     size: width * 0.05,
-          //       //                                     color: Colors.red,
-          //       //                                   ),
-          //       //                                   Text('Parents')
-          //       //                                 ],
-          //       //                               ),
-          //       //
-          //       //                               Divider(height: height * 0.5,color: Colors.red,),
-          //       //                               Text('12,000',style: TextStyle(
-          //       //                                   fontSize: width * 0.03
-          //       //                               ),)
-          //       //
-          //       //                             ],
-          //       //                           ),
-          //       //                         ),
-          //       //                       ),
-          //       //                       decoration: BoxDecoration(
-          //       //                           border: Border(right: BorderSide(color: Colors.red, width: 5))),
-          //       //                     ),
-          //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-          //       //                         borderRadius: BorderRadius.circular(3))),
-          //       //                   ),
-          //       //                 ),
-          //       //                 // SizedBox(width: width * 0.04,),
-          //       //                 Card(
-          //       //                   color: Colors.white,
-          //       //                   elevation: 2,
-          //       //                   child: ClipPath(
-          //       //                     child: Container(
-          //       //                       height: height * 0.2,
-          //       //                       width: width / 5,
-          //       //                       child: Padding(
-          //       //                         padding: const EdgeInsets.all(8.0),
-          //       //                         child: Center(
-          //       //                           child: Row(
-          //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //       //                             crossAxisAlignment: CrossAxisAlignment.center,
-          //       //                             children: [
-          //       //                               Column(
-          //       //                                 children: [
-          //       //                                   Icon(
-          //       //                                     Icons.monetization_on_outlined,
-          //       //                                     size: width * 0.05,
-          //       //                                     color: Colors.green,
-          //       //                                   ),
-          //       //                                   Text('Finance')
-          //       //                                 ],
-          //       //                               ),
-          //       //                               Divider(height: height * 0.5,color: Colors.red,),
-          //       //                               Text('12,000',style: TextStyle(
-          //       //                                   fontSize: width * 0.03
-          //       //                               ),)
-          //       //                             ],
-          //       //                           ),
-          //       //                         ),
-          //       //                       ),
-          //       //                       decoration: BoxDecoration(
-          //       //                           border: Border(right: BorderSide(color: Colors.green, width: 5))),
-          //       //                     ),
-          //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-          //       //                         borderRadius: BorderRadius.circular(3))),
-          //       //                   ),
-          //       //                 ),
-          //       //               ],
-          //       //             ),
-          //       //           ),
-          //       //         ],
-          //       //       ),
-          //       //       Row(
-          //       //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       //         crossAxisAlignment: CrossAxisAlignment.start,
-          //       //         children: [
-          //       //           Card(
-          //       //               color: Colors.white,
-          //       //               elevation: 2,
-          //       //               child: ClipPath(
-          //       //                   child: Container(
-          //       //                       height: height * 0.3,
-          //       //                       width: width /2.5,
-          //       //                       child: Padding(padding: EdgeInsets.all(8.0),
-          //       //                           child: Column(
-          //       //                             children: [
-          //       //                               Padding(
-          //       //                                 padding: const EdgeInsets.all(8.0),
-          //       //                                 child: Row(
-          //       //                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       //                                   children: [
-          //       //                                     Text(
-          //       //                                       'Collection & Expenses',
-          //       //                                       textAlign: TextAlign.center,
-          //       //                                       style: TextStyle(
-          //       //                                         color: Colors.black45,
-          //       //                                         fontWeight: FontWeight.bold,
-          //       //                                       ),
-          //       //                                     ),
-          //       //                                     SizedBox(width: width * 0.1,),
-          //       //                                     Row(
-          //       //                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //       //                                       children: [
-          //       //                                         Icon(Icons.arrow_drop_down,color: Colors.green,),
-          //       //                                         SizedBox(width: width * 0.01,),
-          //       //                                         Icon(Icons.refresh,color: Colors.blue,),
-          //       //                                         SizedBox(width: width * 0.01,),
-          //       //                                         Icon(Icons.cancel,color: Colors.redAccent,),
-          //       //                                       ],
-          //       //                                     ),
-          //       //
-          //       //                                   ],
-          //       //                                 ),
-          //       //                               ),
-          //       //                               Divider(height: height * 0.02,),
-          //       //                               Text('Chart Goes Here ${width /3}')
-          //       //                             ],
-          //       //                           )
-          //       //
-          //       //                       )
-          //       //                   )
-          //       //               )
-          //       //           ),
-          //       //           Card(
-          //       //               color: Colors.white,
-          //       //               elevation: 2,
-          //       //               child: ClipPath(
-          //       //                   child: Container(
-          //       //                       height: height * 0.6,
-          //       //                       width: width /3.5,
-          //       //                       child: Padding(padding: EdgeInsets.all(8.0),
-          //       //                           child: Column(
-          //       //                             children: [
-          //       //                               Padding(
-          //       //                                 padding: const EdgeInsets.all(8.0),
-          //       //                                 child: Row(
-          //       //                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       //                                   children: [
-          //       //                                     Text(
-          //       //                                       'Notice Board',
-          //       //                                       textAlign: TextAlign.center,
-          //       //                                       style: TextStyle(
-          //       //                                         color: Colors.black45,
-          //       //                                         fontWeight: FontWeight.bold,
-          //       //                                       ),
-          //       //                                     ),
-          //       //                                   ],
-          //       //                                 ),
-          //       //                               ),
-          //       //                               Divider(height: height * 0.02,),
-          //       //                               Text('Text Goes Here${width /4}')
-          //       //                             ],
-          //       //                           )
-          //       //
-          //       //                       )
-          //       //                   )
-          //       //               )
-          //       //           ),
-          //       //           Card(
-          //       //               color: Colors.white,
-          //       //               elevation: 2,
-          //       //               child: ClipPath(
-          //       //                   child: Container(
-          //       //                       height: height * 0.6,
-          //       //                       width: width /3.5,
-          //       //                       child: Padding(padding: EdgeInsets.all(8.0),
-          //       //                           child: Column(
-          //       //                             children: [
-          //       //                               Padding(
-          //       //                                 padding: const EdgeInsets.all(8.0),
-          //       //                                 child: Row(
-          //       //                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       //                                   children: [
-          //       //                                     Text(
-          //       //                                       'Recent Activities',
-          //       //                                       textAlign: TextAlign.center,
-          //       //                                       style: TextStyle(
-          //       //                                         color: Colors.black45,
-          //       //                                         fontWeight: FontWeight.bold,
-          //       //                                       ),
-          //       //                                     ),
-          //       //                                   ],
-          //       //                                 ),
-          //       //                               ),
-          //       //                               Divider(height: height * 0.02,),
-          //       //                               Text('Text Goes Here ${width /4}')
-          //       //                             ],
-          //       //                           )
-          //       //
-          //       //                       )
-          //       //                   )
-          //       //               )
-          //       //           ),
-          //       //
-          //       //         ],
-          //       //       ),
-          //       //     ],
-          //       //   ),
-          //       //   Text('are'),
-          //       // ]
-          //   ),
-          // ),
+                  Card(
+                    child: Container(
+                      width: width,
+                      height: height * 0.9,
+                      child: CustomTabView(
+                        initPosition: initPosition,
+                        itemCount: data.length,
+                        tabBuilder: (context, index) => Tab(text: data[index]),
+                        pageBuilder: (context, index) => (
+                            data[index] == 'Dashboard' ?
+                            SchoolDash():
+                            data[index] == 'Student'?
+                                StudentList():
+                            data[index] == 'Exams'?
+                                Exams():
+                            Text('first ${data[index]}')
+                        ),
 
-        ],
+                        onPositionChange: (index){
+                          print('current position: $index');
+                          initPosition = index;
+                          setState((){});
+                        },
+                        onScroll: (position) => print('$position'), stub: Container(),
+                      ),
+                    ),
+                    // child: Container(
+                    //   width: 400,
+                    //   // height: 50,
+                    //   child: Align(
+                    //     alignment: Alignment.centerLeft,
+                    //     child: TabBar(
+                    //         controller: _tabController,
+                    //       isScrollable: true,
+                    //       labelColor: Colors.black,
+                    //         indicator: BoxDecoration(
+                    //           color: Colors.grey[300],
+                    //           borderRadius: BorderRadius.circular(5.0)
+                    //         ),
+                    //         // labelPadding: EdgeInsets.only(left: 8.0,right: 8.0),
+                    //         unselectedLabelColor: Colors.grey,
+                    //       tabs: _tabs,
+                    //         // tabs: [
+                    //         //   Tab(text:"Soke"),
+                    //         //   Tab(text: 'soke2',),
+                    //         // ]
+                    //     ),
+                    //   ),
+                    // ),
+                  ),
+                ],
+              ),
+            // Expanded(
+            //   child: TabBarView(
+            //       controller: _tabController,
+            //     children: getWidgets(),
+            //       // children: [
+            //       //   Column(
+            //       //     children: [
+            //       //       Row(
+            //       //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       //         // crossAxisAlignment: CrossAxisAlignment.end,
+            //       //         children: [
+            //       //           Padding(
+            //       //             padding: const EdgeInsets.all(8.0),
+            //       //             child: Row(
+            //       //               children: [
+            //       //                 Card(
+            //       //                   color: Colors.white,
+            //       //                   elevation: 2,
+            //       //                   child: ClipPath(
+            //       //                     child: Container(
+            //       //                       height: height * 0.2,
+            //       //                       width: width / 4,
+            //       //                       child: Padding(
+            //       //                         padding: const EdgeInsets.all(8.0),
+            //       //                         child: Center(
+            //       //                           child: Row(
+            //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       //                             crossAxisAlignment: CrossAxisAlignment.center,
+            //       //                             children: [
+            //       //                               Column(
+            //       //                                 children: [
+            //       //                                   Icon(
+            //       //                                     Icons.group,
+            //       //                                     size: width * 0.05,
+            //       //                                     color: Colors.brown,
+            //       //                                   ),
+            //       //                                   Text('Students')
+            //       //                                 ],
+            //       //                               ),
+            //       //
+            //       //                               Divider(height: height * 0.5,color: Colors.red,),
+            //       //                               Text('12,000',style: TextStyle(
+            //       //                                   fontSize: width * 0.03
+            //       //                               ),)
+            //       //
+            //       //                             ],
+            //       //                           ),
+            //       //                         ),
+            //       //                       ),
+            //       //                       decoration: BoxDecoration(
+            //       //                           border: Border(right: BorderSide(color: Colors.brown, width: 5))),
+            //       //                     ),
+            //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
+            //       //                         borderRadius: BorderRadius.circular(3))),
+            //       //                   ),
+            //       //                 ),
+            //       //                 // SizedBox(width: width * 0.04,),
+            //       //                 Card(
+            //       //                   color: Colors.white,
+            //       //                   elevation: 2,
+            //       //                   child: ClipPath(
+            //       //                     child: Container(
+            //       //                       height: height * 0.2,
+            //       //                       width: width / 4,
+            //       //                       child: Padding(
+            //       //                         padding: const EdgeInsets.all(8.0),
+            //       //                         child: Center(
+            //       //                           child: Row(
+            //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       //                             crossAxisAlignment: CrossAxisAlignment.center,
+            //       //                             children: [
+            //       //                               Column(
+            //       //                                 children: [
+            //       //                                   Icon(
+            //       //                                     Icons.groups,
+            //       //                                     size: width * 0.05,
+            //       //                                     color: Colors.blue,
+            //       //                                   ),
+            //       //                                   Text('Teachers')
+            //       //                                 ],
+            //       //                               ),
+            //       //
+            //       //                               Divider(height: height * 0.5,color: Colors.red,),
+            //       //                               Text('12,000',style: TextStyle(
+            //       //                                   fontSize: width * 0.03
+            //       //                               ),)
+            //       //
+            //       //                             ],
+            //       //                           ),
+            //       //                         ),
+            //       //                       ),
+            //       //                       decoration: BoxDecoration(
+            //       //                           border: Border(right: BorderSide(color: Colors.blue, width: 5))),
+            //       //                     ),
+            //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
+            //       //                         borderRadius: BorderRadius.circular(3))),
+            //       //                   ),
+            //       //                 ),
+            //       //                 // SizedBox(width: width * 0.04,),
+            //       //                 Card(
+            //       //                   color: Colors.white,
+            //       //                   elevation: 2,
+            //       //                   child: ClipPath(
+            //       //                     child: Container(
+            //       //                       height: height * 0.2,
+            //       //                       width: width / 4,
+            //       //                       child: Padding(
+            //       //                         padding: const EdgeInsets.all(8.0),
+            //       //                         child: Center(
+            //       //                           child: Row(
+            //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       //                             crossAxisAlignment: CrossAxisAlignment.center,
+            //       //                             children: [
+            //       //                               Column(
+            //       //                                 children: [
+            //       //                                   Icon(
+            //       //                                     Icons.person_add_alt_1_sharp,
+            //       //                                     size: width * 0.05,
+            //       //                                     color: Colors.red,
+            //       //                                   ),
+            //       //                                   Text('Parents')
+            //       //                                 ],
+            //       //                               ),
+            //       //
+            //       //                               Divider(height: height * 0.5,color: Colors.red,),
+            //       //                               Text('12,000',style: TextStyle(
+            //       //                                   fontSize: width * 0.03
+            //       //                               ),)
+            //       //
+            //       //                             ],
+            //       //                           ),
+            //       //                         ),
+            //       //                       ),
+            //       //                       decoration: BoxDecoration(
+            //       //                           border: Border(right: BorderSide(color: Colors.red, width: 5))),
+            //       //                     ),
+            //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
+            //       //                         borderRadius: BorderRadius.circular(3))),
+            //       //                   ),
+            //       //                 ),
+            //       //                 // SizedBox(width: width * 0.04,),
+            //       //                 Card(
+            //       //                   color: Colors.white,
+            //       //                   elevation: 2,
+            //       //                   child: ClipPath(
+            //       //                     child: Container(
+            //       //                       height: height * 0.2,
+            //       //                       width: width / 5,
+            //       //                       child: Padding(
+            //       //                         padding: const EdgeInsets.all(8.0),
+            //       //                         child: Center(
+            //       //                           child: Row(
+            //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       //                             crossAxisAlignment: CrossAxisAlignment.center,
+            //       //                             children: [
+            //       //                               Column(
+            //       //                                 children: [
+            //       //                                   Icon(
+            //       //                                     Icons.monetization_on_outlined,
+            //       //                                     size: width * 0.05,
+            //       //                                     color: Colors.green,
+            //       //                                   ),
+            //       //                                   Text('Finance')
+            //       //                                 ],
+            //       //                               ),
+            //       //                               Divider(height: height * 0.5,color: Colors.red,),
+            //       //                               Text('12,000',style: TextStyle(
+            //       //                                   fontSize: width * 0.03
+            //       //                               ),)
+            //       //                             ],
+            //       //                           ),
+            //       //                         ),
+            //       //                       ),
+            //       //                       decoration: BoxDecoration(
+            //       //                           border: Border(right: BorderSide(color: Colors.green, width: 5))),
+            //       //                     ),
+            //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
+            //       //                         borderRadius: BorderRadius.circular(3))),
+            //       //                   ),
+            //       //                 ),
+            //       //               ],
+            //       //             ),
+            //       //           ),
+            //       //         ],
+            //       //       ),
+            //       //       Row(
+            //       //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       //         crossAxisAlignment: CrossAxisAlignment.start,
+            //       //         children: [
+            //       //           Card(
+            //       //               color: Colors.white,
+            //       //               elevation: 2,
+            //       //               child: ClipPath(
+            //       //                   child: Container(
+            //       //                       height: height * 0.3,
+            //       //                       width: width /2.5,
+            //       //                       child: Padding(padding: EdgeInsets.all(8.0),
+            //       //                           child: Column(
+            //       //                             children: [
+            //       //                               Padding(
+            //       //                                 padding: const EdgeInsets.all(8.0),
+            //       //                                 child: Row(
+            //       //                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       //                                   children: [
+            //       //                                     Text(
+            //       //                                       'Collection & Expenses',
+            //       //                                       textAlign: TextAlign.center,
+            //       //                                       style: TextStyle(
+            //       //                                         color: Colors.black45,
+            //       //                                         fontWeight: FontWeight.bold,
+            //       //                                       ),
+            //       //                                     ),
+            //       //                                     SizedBox(width: width * 0.1,),
+            //       //                                     Row(
+            //       //                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       //                                       children: [
+            //       //                                         Icon(Icons.arrow_drop_down,color: Colors.green,),
+            //       //                                         SizedBox(width: width * 0.01,),
+            //       //                                         Icon(Icons.refresh,color: Colors.blue,),
+            //       //                                         SizedBox(width: width * 0.01,),
+            //       //                                         Icon(Icons.cancel,color: Colors.redAccent,),
+            //       //                                       ],
+            //       //                                     ),
+            //       //
+            //       //                                   ],
+            //       //                                 ),
+            //       //                               ),
+            //       //                               Divider(height: height * 0.02,),
+            //       //                               Text('Chart Goes Here ${width /3}')
+            //       //                             ],
+            //       //                           )
+            //       //
+            //       //                       )
+            //       //                   )
+            //       //               )
+            //       //           ),
+            //       //           Card(
+            //       //               color: Colors.white,
+            //       //               elevation: 2,
+            //       //               child: ClipPath(
+            //       //                   child: Container(
+            //       //                       height: height * 0.6,
+            //       //                       width: width /3.5,
+            //       //                       child: Padding(padding: EdgeInsets.all(8.0),
+            //       //                           child: Column(
+            //       //                             children: [
+            //       //                               Padding(
+            //       //                                 padding: const EdgeInsets.all(8.0),
+            //       //                                 child: Row(
+            //       //                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       //                                   children: [
+            //       //                                     Text(
+            //       //                                       'Notice Board',
+            //       //                                       textAlign: TextAlign.center,
+            //       //                                       style: TextStyle(
+            //       //                                         color: Colors.black45,
+            //       //                                         fontWeight: FontWeight.bold,
+            //       //                                       ),
+            //       //                                     ),
+            //       //                                   ],
+            //       //                                 ),
+            //       //                               ),
+            //       //                               Divider(height: height * 0.02,),
+            //       //                               Text('Text Goes Here${width /4}')
+            //       //                             ],
+            //       //                           )
+            //       //
+            //       //                       )
+            //       //                   )
+            //       //               )
+            //       //           ),
+            //       //           Card(
+            //       //               color: Colors.white,
+            //       //               elevation: 2,
+            //       //               child: ClipPath(
+            //       //                   child: Container(
+            //       //                       height: height * 0.6,
+            //       //                       width: width /3.5,
+            //       //                       child: Padding(padding: EdgeInsets.all(8.0),
+            //       //                           child: Column(
+            //       //                             children: [
+            //       //                               Padding(
+            //       //                                 padding: const EdgeInsets.all(8.0),
+            //       //                                 child: Row(
+            //       //                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //       //                                   children: [
+            //       //                                     Text(
+            //       //                                       'Recent Activities',
+            //       //                                       textAlign: TextAlign.center,
+            //       //                                       style: TextStyle(
+            //       //                                         color: Colors.black45,
+            //       //                                         fontWeight: FontWeight.bold,
+            //       //                                       ),
+            //       //                                     ),
+            //       //                                   ],
+            //       //                                 ),
+            //       //                               ),
+            //       //                               Divider(height: height * 0.02,),
+            //       //                               Text('Text Goes Here ${width /4}')
+            //       //                             ],
+            //       //                           )
+            //       //
+            //       //                       )
+            //       //                   )
+            //       //               )
+            //       //           ),
+            //       //
+            //       //         ],
+            //       //       ),
+            //       //     ],
+            //       //   ),
+            //       //   Text('are'),
+            //       // ]
+            //   ),
+            // ),
+
+          ],
+        ),
       ),
     );
   }
-  // TabController getTabController() {
-  //   return TabController(length: _tabs.length, vsync: this);
-  // }
-  //
-  // Tab getTab(int widgetNumber, String? widgetName) {
-  //   // switch (widgetName){
-  //   //   case "Dashboard":
-  //   //     return Tab(
-  //   //       text: "Dashboard",
-  //   //     );
-  //   // }
-  //
-  //   return Tab(
-  //     text: "${widgetNumber}, ${widgetName}",
-  //   );
-  // }
-  //
-  // Widget getWidget(int widgetNumber) {
-  //   return Center(
-  //     child: Text("Widget nr: $widgetNumber"),
-  //   );
-  // }
-  //
-  // List<Tab> getTabs(int count) {
-  //   _tabs.clear();
-  //   for (int i = 0; i < count; i++) {
-  //     _tabs.add(getTab(i,'soke'));
-  //   }
-  //   return _tabs;
-  // }
-  //
-  // List<Widget> getWidgets() {
-  //   _generalWidgets.clear();
-  //   for (int i = 0; i < _tabs.length; i++) {
-  //     _generalWidgets.add(getWidget(i));
-  //   }
-  //   return _generalWidgets;
-  // }
-  //
-  // void _addAnotherTab() {
-  //   _tabs = getTabs(_tabs.length + 1);
-  //   _tabController.index = 0;
-  //   _tabController = getTabController();
-  //   _updatePage();
-  // }
-  //
-  // void _removeTab() {
-  //   _tabs = getTabs(_tabs.length - 1);
-  //   _tabController.index = 0;
-  //   _tabController = getTabController();
-  //   _updatePage();
-  // }
-  //
-  // void _updatePage() {
-  //   setState(() {});
-  // }
-
 }
 
 class CustomTabView extends StatefulWidget {
@@ -962,6 +628,7 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
     controller.addListener(onPositionChange);
     controller.animation?.addListener(onScroll);
     _currentCount = widget.itemCount;
+    setState((){});
     super.initState();
   }
 
