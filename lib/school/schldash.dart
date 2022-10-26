@@ -7,7 +7,10 @@ class SchoolDash extends StatefulWidget {
   State<SchoolDash> createState() => _SchoolDashState();
 }
 
-class _SchoolDashState extends State<SchoolDash> {
+class _SchoolDashState extends State<SchoolDash> with AutomaticKeepAliveClientMixin<SchoolDash>{
+
+@override
+bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {

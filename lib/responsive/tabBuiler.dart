@@ -1,271 +1,271 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MainPage());
-  }
-}
-
-class MainPage extends StatefulWidget {
-  @override
-  _MainPageState createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
-  final int _startingTabCount = 4;
-
-  List<Tab> _tabs = <Tab>[];
-  List<Widget> _generalWidgets = <Widget>[];
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    _tabs = getTabs(_startingTabCount);
-    _tabController = getTabController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Dynamic TBV"),
-        bottom: TabBar(
-          tabs: _tabs,
-          controller: _tabController,
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: _addAnotherTab,
-          ),
-          IconButton(
-            icon: Icon(Icons.remove),
-            onPressed: _removeTab,
-          ),
-        ],
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: getWidgets(),
-      ),
-    );
-  }
-
-  TabController getTabController() {
-    return TabController(length: _tabs.length, vsync: this);
-  }
-
-  Tab getTab(int widgetNumber) {
-    return Tab(
-      text: "$widgetNumber",
-    );
-  }
-
-  Widget getWidget(int widgetNumber) {
-    return Center(
-      child: Text("Widget nr: $widgetNumber"),
-    );
-  }
-
-  List<Tab> getTabs(int count) {
-    _tabs.clear();
-    for (int i = 0; i < count; i++) {
-      _tabs.add(getTab(i));
-    }
-    return _tabs;
-  }
-
-  List<Widget> getWidgets() {
-    _generalWidgets.clear();
-    for (int i = 0; i < _tabs.length; i++) {
-      _generalWidgets.add(getWidget(i));
-    }
-    return _generalWidgets;
-  }
-
-  void _addAnotherTab() {
-    _tabs = getTabs(_tabs.length + 1);
-    _tabController.index = 0;
-    _tabController = getTabController();
-    _updatePage();
-  }
-
-  void _removeTab() {
-    _tabs = getTabs(_tabs.length - 1);
-    _tabController.index = 0;
-    _tabController = getTabController();
-    _updatePage();
-  }
-
-  void _updatePage() {
-    setState(() {});
-  }
-}
-
-
-
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 //
-// class CustomTabView extends StatefulWidget {
-//   final int itemCount;
-//   final IndexedWidgetBuilder tabBuilder;
-//   final IndexedWidgetBuilder pageBuilder;
-//   final Widget stub;
-//   final ValueChanged<int> onPositionChange;
-//   final ValueChanged<double> onScroll;
-//   final int initPosition;
-//
-//   CustomTabView({
-//     required this.itemCount,
-//     required this.tabBuilder,
-//     required this.pageBuilder,
-//     required this.stub,
-//     required this.onPositionChange,
-//     required this.onScroll,
-//     required this.initPosition,
-//   });
-//
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
 //   @override
-//   _CustomTabsState createState() => _CustomTabsState();
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         title: 'Flutter Demo',
+//         theme: ThemeData(
+//           primarySwatch: Colors.blue,
+//         ),
+//         home: MainPage());
+//   }
 // }
 //
-// class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixin {
-//   late TabController controller;
-//   late int _currentCount;
-//   late int _currentPosition;
+// class MainPage extends StatefulWidget {
+//   @override
+//   _MainPageState createState() => _MainPageState();
+// }
+//
+// class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
+//   final int _startingTabCount = 4;
+//
+//   List<Tab> _tabs = <Tab>[];
+//   List<Widget> _generalWidgets = <Widget>[];
+//   late TabController _tabController;
 //
 //   @override
 //   void initState() {
-//     _currentPosition = widget.initPosition ?? 0;
-//     controller = TabController(
-//       length: widget.itemCount,
-//       vsync: this,
-//       initialIndex: _currentPosition,
-//     );
-//     controller.addListener(onPositionChange);
-//     controller.animation?.addListener(onScroll);
-//     _currentCount = widget.itemCount;
+//     _tabs = getTabs(_startingTabCount);
+//     _tabController = getTabController();
 //     super.initState();
 //   }
 //
 //   @override
-//   void didUpdateWidget(CustomTabView oldWidget) {
-//     if (_currentCount != widget.itemCount) {
-//       controller.animation?.removeListener(onScroll);
-//       controller.removeListener(onPositionChange);
-//       controller.dispose();
-//
-//       if (widget.initPosition != null) {
-//         _currentPosition = widget.initPosition;
-//       }
-//
-//       if (_currentPosition > widget.itemCount - 1) {
-//         _currentPosition = widget.itemCount - 1;
-//         _currentPosition = _currentPosition < 0 ? 0 :
-//         _currentPosition;
-//         if (widget.onPositionChange is ValueChanged<int>) {
-//           WidgetsBinding.instance.addPostFrameCallback((_){
-//             if(mounted) {
-//               widget.onPositionChange(_currentPosition);
-//             }
-//           });
-//         }
-//       }
-//
-//       _currentCount = widget.itemCount;
-//       setState(() {
-//         controller = TabController(
-//           length: widget.itemCount,
-//           vsync: this,
-//           initialIndex: _currentPosition,
-//         );
-//         controller.addListener(onPositionChange);
-//         controller.animation?.addListener(onScroll);
-//       });
-//     } else if (widget.initPosition != null) {
-//       controller.animateTo(widget.initPosition);
-//     }
-//
-//     super.didUpdateWidget(oldWidget);
-//   }
-//
-//   @override
 //   void dispose() {
-//     controller.animation!.removeListener(onScroll);
-//     controller.removeListener(onPositionChange);
-//     controller.dispose();
+//     _tabController.dispose();
 //     super.dispose();
 //   }
 //
 //   @override
 //   Widget build(BuildContext context) {
-//     if (widget.itemCount < 1) return widget.stub ?? Container();
-//
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.stretch,
-//       children: <Widget>[
-//         Container(
-//           alignment: Alignment.center,
-//           child: TabBar(
-//             isScrollable: true,
-//             controller: controller,
-//             labelColor: Theme.of(context).primaryColor,
-//             unselectedLabelColor: Theme.of(context).hintColor,
-//             indicator: BoxDecoration(
-//               border: Border(
-//                 bottom: BorderSide(
-//                   color: Theme.of(context).primaryColor,
-//                   width: 2,
-//                 ),
-//               ),
-//             ),
-//             tabs: List.generate(
-//               widget.itemCount,
-//                   (index) => widget.tabBuilder(context, index),
-//             ),
-//           ),
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Dynamic TBV"),
+//         bottom: TabBar(
+//           tabs: _tabs,
+//           controller: _tabController,
 //         ),
-//         Expanded(
-//           child: TabBarView(
-//             controller: controller,
-//             children: List.generate(
-//               widget.itemCount,
-//                   (index) => widget.pageBuilder(context, index),
-//             ),
+//         actions: <Widget>[
+//           IconButton(
+//             icon: Icon(Icons.add),
+//             onPressed: _addAnotherTab,
 //           ),
-//         ),
-//       ],
+//           IconButton(
+//             icon: Icon(Icons.remove),
+//             onPressed: _removeTab,
+//           ),
+//         ],
+//       ),
+//       body: TabBarView(
+//         controller: _tabController,
+//         children: getWidgets(),
+//       ),
 //     );
 //   }
 //
-//   onPositionChange() {
-//     if (!controller.indexIsChanging) {
-//       _currentPosition = controller.index;
-//       if (widget.onPositionChange is ValueChanged<int>) {
-//         widget.onPositionChange(_currentPosition);
-//       }
-//     }
+//   TabController getTabController() {
+//     return TabController(length: _tabs.length, vsync: this);
 //   }
 //
-//   onScroll() {
-//     if (widget.onScroll is ValueChanged<double>) {
-//       widget.onScroll(controller.animation!.value);
+//   Tab getTab(int widgetNumber) {
+//     return Tab(
+//       text: "$widgetNumber",
+//     );
+//   }
+//
+//   Widget getWidget(int widgetNumber) {
+//     return Center(
+//       child: Text("Widget nr: $widgetNumber"),
+//     );
+//   }
+//
+//   List<Tab> getTabs(int count) {
+//     _tabs.clear();
+//     for (int i = 0; i < count; i++) {
+//       _tabs.add(getTab(i));
 //     }
+//     return _tabs;
+//   }
+//
+//   List<Widget> getWidgets() {
+//     _generalWidgets.clear();
+//     for (int i = 0; i < _tabs.length; i++) {
+//       _generalWidgets.add(getWidget(i));
+//     }
+//     return _generalWidgets;
+//   }
+//
+//   void _addAnotherTab() {
+//     _tabs = getTabs(_tabs.length + 1);
+//     _tabController.index = 0;
+//     _tabController = getTabController();
+//     _updatePage();
+//   }
+//
+//   void _removeTab() {
+//     _tabs = getTabs(_tabs.length - 1);
+//     _tabController.index = 0;
+//     _tabController = getTabController();
+//     _updatePage();
+//   }
+//
+//   void _updatePage() {
+//     setState(() {});
 //   }
 // }
+//
+//
+//
+// // import 'package:flutter/cupertino.dart';
+// // import 'package:flutter/material.dart';
+// //
+// // class CustomTabView extends StatefulWidget {
+// //   final int itemCount;
+// //   final IndexedWidgetBuilder tabBuilder;
+// //   final IndexedWidgetBuilder pageBuilder;
+// //   final Widget stub;
+// //   final ValueChanged<int> onPositionChange;
+// //   final ValueChanged<double> onScroll;
+// //   final int initPosition;
+// //
+// //   CustomTabView({
+// //     required this.itemCount,
+// //     required this.tabBuilder,
+// //     required this.pageBuilder,
+// //     required this.stub,
+// //     required this.onPositionChange,
+// //     required this.onScroll,
+// //     required this.initPosition,
+// //   });
+// //
+// //   @override
+// //   _CustomTabsState createState() => _CustomTabsState();
+// // }
+// //
+// // class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixin {
+// //   late TabController controller;
+// //   late int _currentCount;
+// //   late int _currentPosition;
+// //
+// //   @override
+// //   void initState() {
+// //     _currentPosition = widget.initPosition ?? 0;
+// //     controller = TabController(
+// //       length: widget.itemCount,
+// //       vsync: this,
+// //       initialIndex: _currentPosition,
+// //     );
+// //     controller.addListener(onPositionChange);
+// //     controller.animation?.addListener(onScroll);
+// //     _currentCount = widget.itemCount;
+// //     super.initState();
+// //   }
+// //
+// //   @override
+// //   void didUpdateWidget(CustomTabView oldWidget) {
+// //     if (_currentCount != widget.itemCount) {
+// //       controller.animation?.removeListener(onScroll);
+// //       controller.removeListener(onPositionChange);
+// //       controller.dispose();
+// //
+// //       if (widget.initPosition != null) {
+// //         _currentPosition = widget.initPosition;
+// //       }
+// //
+// //       if (_currentPosition > widget.itemCount - 1) {
+// //         _currentPosition = widget.itemCount - 1;
+// //         _currentPosition = _currentPosition < 0 ? 0 :
+// //         _currentPosition;
+// //         if (widget.onPositionChange is ValueChanged<int>) {
+// //           WidgetsBinding.instance.addPostFrameCallback((_){
+// //             if(mounted) {
+// //               widget.onPositionChange(_currentPosition);
+// //             }
+// //           });
+// //         }
+// //       }
+// //
+// //       _currentCount = widget.itemCount;
+// //       setState(() {
+// //         controller = TabController(
+// //           length: widget.itemCount,
+// //           vsync: this,
+// //           initialIndex: _currentPosition,
+// //         );
+// //         controller.addListener(onPositionChange);
+// //         controller.animation?.addListener(onScroll);
+// //       });
+// //     } else if (widget.initPosition != null) {
+// //       controller.animateTo(widget.initPosition);
+// //     }
+// //
+// //     super.didUpdateWidget(oldWidget);
+// //   }
+// //
+// //   @override
+// //   void dispose() {
+// //     controller.animation!.removeListener(onScroll);
+// //     controller.removeListener(onPositionChange);
+// //     controller.dispose();
+// //     super.dispose();
+// //   }
+// //
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     if (widget.itemCount < 1) return widget.stub ?? Container();
+// //
+// //     return Column(
+// //       crossAxisAlignment: CrossAxisAlignment.stretch,
+// //       children: <Widget>[
+// //         Container(
+// //           alignment: Alignment.center,
+// //           child: TabBar(
+// //             isScrollable: true,
+// //             controller: controller,
+// //             labelColor: Theme.of(context).primaryColor,
+// //             unselectedLabelColor: Theme.of(context).hintColor,
+// //             indicator: BoxDecoration(
+// //               border: Border(
+// //                 bottom: BorderSide(
+// //                   color: Theme.of(context).primaryColor,
+// //                   width: 2,
+// //                 ),
+// //               ),
+// //             ),
+// //             tabs: List.generate(
+// //               widget.itemCount,
+// //                   (index) => widget.tabBuilder(context, index),
+// //             ),
+// //           ),
+// //         ),
+// //         Expanded(
+// //           child: TabBarView(
+// //             controller: controller,
+// //             children: List.generate(
+// //               widget.itemCount,
+// //                   (index) => widget.pageBuilder(context, index),
+// //             ),
+// //           ),
+// //         ),
+// //       ],
+// //     );
+// //   }
+// //
+// //   onPositionChange() {
+// //     if (!controller.indexIsChanging) {
+// //       _currentPosition = controller.index;
+// //       if (widget.onPositionChange is ValueChanged<int>) {
+// //         widget.onPositionChange(_currentPosition);
+// //       }
+// //     }
+// //   }
+// //
+// //   onScroll() {
+// //     if (widget.onScroll is ValueChanged<double>) {
+// //       widget.onScroll(controller.animation!.value);
+// //     }
+// //   }
+// // }

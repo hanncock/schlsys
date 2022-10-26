@@ -79,9 +79,19 @@ class MyDesktopBody extends StatefulWidget {
 }
 var width;
 var height;
-class _MyDesktopBodyState extends State<MyDesktopBody> with TickerProviderStateMixin{
+class _MyDesktopBodyState extends State<MyDesktopBody> with /*TickerProviderStateMixin*/ AutomaticKeepAliveClientMixin<MyDesktopBody>{
 
+@override
+bool get wantKeepAlive => true;
   List<String> data = ['Dashboard'];
+  // // List<Tab> data = [
+  // //   const Tab(icon: IconButton(onPressed: null, icon: Icon(Icons.close)), child: const Text('Tab One')),
+  // //   const Tab(icon: Icon(Icons.looks_two), text: 'Tab Two'),
+  // //   const Tab(icon: Icon(Icons.looks_3), text: 'Tab Three'),
+  // // ];
+  // var data = [
+  //   'Dashboard'
+  // ];
   int initPosition = 0;
 
   @override
@@ -92,496 +102,130 @@ class _MyDesktopBodyState extends State<MyDesktopBody> with TickerProviderStateM
     width = width;
     height = height;
     return Scaffold(
-        appBar: AppBar(
-        title: Text('D E S K T O P',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold
-          ),),
-        centerTitle: true,
-          backgroundColor: Colors.blueGrey,
-      ),
-        floatingActionButton:FloatingActionButton(
-          onPressed: (){},
-          child: IconButton(
-            onPressed: () {
-              data[initPosition] == 'Dashboard' ? setState((){}):
-              setState(() {
-                data.remove(data[initPosition]);
-              });
-            },
-            icon: Icon(Icons.remove),
-          ),
-        ),
+      //   appBar: AppBar(
+      //   title: Text('D E S K T O P',
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //       fontWeight: FontWeight.bold
+      //     ),),
+      //   centerTitle: true,
+      //     backgroundColor: Colors.blueGrey,
+      //     actions: [
+      //       IconButton(
+      //           onPressed: (){},
+      //           icon: Icon(Icons.minimize,size: 15,)
+      //       ),
+      //       IconButton(
+      //           onPressed: (){},
+      //           icon: Icon(Icons.close,size: 15,)
+      //       )
+      //     ],
+      // ),
+      //   floatingActionButton:FloatingActionButton(
+      //     onPressed: (){},
+      //     child: IconButton(
+      //       onPressed: () {
+      //         data[initPosition] == 'Dashboard' ? setState((){}):
+      //         setState(() {
+      //           data.remove(data[initPosition]);
+      //         });
+      //       },
+      //       icon: Icon(Icons.remove),
+      //     ),
+      //   ),
       drawer: Drawwer(),
       backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
         child: Column(
           children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0,left: 8.0),
-                    child: Row(
-                      children: [
-                        Column(
-                          children: [
-                            Card(
-                                color: Colors.grey[200],
-                                elevation: 2,
-                                child: ClipPath(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        RaisedButton(
-                                          color: Colors.grey[100],
-                                          onPressed: (){
-                                            if(data.contains('Home')){
-
-                                            }else{
-                                              setState(() {
-                                                data.add('Home');
-                                              });
-                                              // print('current position: $index');
-                                              initPosition = int.parse("Home");
-                                              setState((){});
-                                            }
-
-                                          },
-                                            child:  Text('Home'),
-                                        ),
-                                        RaisedButton(
-                                          color: Colors.grey[100],
-                                          onPressed: (){
-                                            if(data.contains('Student')){
-
-                                            }else{
-                                              setState(() {
-                                                data.add('Student');
-                                              });
-                                              initPosition = int.parse("Student");
-                                              setState((){});
-                                            }
-
-                                          },
-                                          child:  Text('Student'),
-                                        ),
-                                        RaisedButton(
-                                          color: Colors.grey[100],
-                                          onPressed: (){
-                                            if(data.contains('Exams')){
-                                              CustomTabView(
-                                                initPosition: initPosition,
-                                                itemCount: data.length,
-                                                tabBuilder: (context, initPosition) => Tab(text: data[initPosition]),
-                                                pageBuilder: (context, initPosition) => Text('its page ${data[initPosition]}'),
-                                                stub: Container(),
-                                                onScroll: (double value) {  },
-                                                onPositionChange: (int value) {  }
-
-                                              );
-                                            }else{
-                                              setState(() {
-                                                data.add('Exams');
-                                              });
-                                              CustomTabView(
-                                                  initPosition: initPosition,
-                                                  itemCount: data.length,
-                                                  tabBuilder: (context, initPosition) => Tab(text: data[initPosition]),
-                                                  pageBuilder: (context, initPosition) => Text('its page ${data[initPosition]}'),
-                                                  stub: Container(),
-                                                  onScroll: (double value) {  },
-                                                  onPositionChange: (int value) {  }
-
-                                              );
-                                              // print('current position: $index');
-                                              initPosition = int.parse("Exams");
-                                              print('this is the position${initPosition}');
-                                              setState((){});
-                                            }
-
-                                          },
-                                          child:  Text('Exams'),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Card(
-                    child: Container(
-                      width: width,
-                      height: height * 0.9,
-                      child: CustomTabView(
-                        initPosition: initPosition,
-                        itemCount: data.length,
-                        tabBuilder: (context, index) => Tab(text: data[index]),
-                        pageBuilder: (context, index) => (
-                            data[index] == 'Dashboard' ?
-                            SchoolDash():
-                            data[index] == 'Student'?
-                                StudentList():
-                            data[index] == 'Exams'?
-                                Exams():
-                            Text('first ${data[index]}')
-                        ),
-
-                        onPositionChange: (index){
-                          print('current position: $index');
-                          initPosition = index;
+              Card(
+                elevation: 2,
+                child: Row(
+                  children: [
+                    RaisedButton(
+                      color: Colors.grey[100],
+                      onPressed: (){
+                        if(data.contains('Home')){
+                          initPosition = data.indexOf('Home');
                           setState((){});
-                        },
-                        onScroll: (position) => print('$position'), stub: Container(),
-                      ),
+                        }else{
+                          setState(() {
+                            data.add('Home');
+                          });
+                          initPosition = data.indexOf('Home');
+                          print('this is the position $initPosition');
+                          setState((){});
+                        }
+                      },
+                        child:  Text('Home'),
                     ),
-                    // child: Container(
-                    //   width: 400,
-                    //   // height: 50,
-                    //   child: Align(
-                    //     alignment: Alignment.centerLeft,
-                    //     child: TabBar(
-                    //         controller: _tabController,
-                    //       isScrollable: true,
-                    //       labelColor: Colors.black,
-                    //         indicator: BoxDecoration(
-                    //           color: Colors.grey[300],
-                    //           borderRadius: BorderRadius.circular(5.0)
-                    //         ),
-                    //         // labelPadding: EdgeInsets.only(left: 8.0,right: 8.0),
-                    //         unselectedLabelColor: Colors.grey,
-                    //       tabs: _tabs,
-                    //         // tabs: [
-                    //         //   Tab(text:"Soke"),
-                    //         //   Tab(text: 'soke2',),
-                    //         // ]
-                    //     ),
-                    //   ),
-                    // ),
-                  ),
-                ],
-              ),
-            // Expanded(
-            //   child: TabBarView(
-            //       controller: _tabController,
-            //     children: getWidgets(),
-            //       // children: [
-            //       //   Column(
-            //       //     children: [
-            //       //       Row(
-            //       //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       //         // crossAxisAlignment: CrossAxisAlignment.end,
-            //       //         children: [
-            //       //           Padding(
-            //       //             padding: const EdgeInsets.all(8.0),
-            //       //             child: Row(
-            //       //               children: [
-            //       //                 Card(
-            //       //                   color: Colors.white,
-            //       //                   elevation: 2,
-            //       //                   child: ClipPath(
-            //       //                     child: Container(
-            //       //                       height: height * 0.2,
-            //       //                       width: width / 4,
-            //       //                       child: Padding(
-            //       //                         padding: const EdgeInsets.all(8.0),
-            //       //                         child: Center(
-            //       //                           child: Row(
-            //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //       //                             crossAxisAlignment: CrossAxisAlignment.center,
-            //       //                             children: [
-            //       //                               Column(
-            //       //                                 children: [
-            //       //                                   Icon(
-            //       //                                     Icons.group,
-            //       //                                     size: width * 0.05,
-            //       //                                     color: Colors.brown,
-            //       //                                   ),
-            //       //                                   Text('Students')
-            //       //                                 ],
-            //       //                               ),
-            //       //
-            //       //                               Divider(height: height * 0.5,color: Colors.red,),
-            //       //                               Text('12,000',style: TextStyle(
-            //       //                                   fontSize: width * 0.03
-            //       //                               ),)
-            //       //
-            //       //                             ],
-            //       //                           ),
-            //       //                         ),
-            //       //                       ),
-            //       //                       decoration: BoxDecoration(
-            //       //                           border: Border(right: BorderSide(color: Colors.brown, width: 5))),
-            //       //                     ),
-            //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-            //       //                         borderRadius: BorderRadius.circular(3))),
-            //       //                   ),
-            //       //                 ),
-            //       //                 // SizedBox(width: width * 0.04,),
-            //       //                 Card(
-            //       //                   color: Colors.white,
-            //       //                   elevation: 2,
-            //       //                   child: ClipPath(
-            //       //                     child: Container(
-            //       //                       height: height * 0.2,
-            //       //                       width: width / 4,
-            //       //                       child: Padding(
-            //       //                         padding: const EdgeInsets.all(8.0),
-            //       //                         child: Center(
-            //       //                           child: Row(
-            //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //       //                             crossAxisAlignment: CrossAxisAlignment.center,
-            //       //                             children: [
-            //       //                               Column(
-            //       //                                 children: [
-            //       //                                   Icon(
-            //       //                                     Icons.groups,
-            //       //                                     size: width * 0.05,
-            //       //                                     color: Colors.blue,
-            //       //                                   ),
-            //       //                                   Text('Teachers')
-            //       //                                 ],
-            //       //                               ),
-            //       //
-            //       //                               Divider(height: height * 0.5,color: Colors.red,),
-            //       //                               Text('12,000',style: TextStyle(
-            //       //                                   fontSize: width * 0.03
-            //       //                               ),)
-            //       //
-            //       //                             ],
-            //       //                           ),
-            //       //                         ),
-            //       //                       ),
-            //       //                       decoration: BoxDecoration(
-            //       //                           border: Border(right: BorderSide(color: Colors.blue, width: 5))),
-            //       //                     ),
-            //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-            //       //                         borderRadius: BorderRadius.circular(3))),
-            //       //                   ),
-            //       //                 ),
-            //       //                 // SizedBox(width: width * 0.04,),
-            //       //                 Card(
-            //       //                   color: Colors.white,
-            //       //                   elevation: 2,
-            //       //                   child: ClipPath(
-            //       //                     child: Container(
-            //       //                       height: height * 0.2,
-            //       //                       width: width / 4,
-            //       //                       child: Padding(
-            //       //                         padding: const EdgeInsets.all(8.0),
-            //       //                         child: Center(
-            //       //                           child: Row(
-            //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //       //                             crossAxisAlignment: CrossAxisAlignment.center,
-            //       //                             children: [
-            //       //                               Column(
-            //       //                                 children: [
-            //       //                                   Icon(
-            //       //                                     Icons.person_add_alt_1_sharp,
-            //       //                                     size: width * 0.05,
-            //       //                                     color: Colors.red,
-            //       //                                   ),
-            //       //                                   Text('Parents')
-            //       //                                 ],
-            //       //                               ),
-            //       //
-            //       //                               Divider(height: height * 0.5,color: Colors.red,),
-            //       //                               Text('12,000',style: TextStyle(
-            //       //                                   fontSize: width * 0.03
-            //       //                               ),)
-            //       //
-            //       //                             ],
-            //       //                           ),
-            //       //                         ),
-            //       //                       ),
-            //       //                       decoration: BoxDecoration(
-            //       //                           border: Border(right: BorderSide(color: Colors.red, width: 5))),
-            //       //                     ),
-            //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-            //       //                         borderRadius: BorderRadius.circular(3))),
-            //       //                   ),
-            //       //                 ),
-            //       //                 // SizedBox(width: width * 0.04,),
-            //       //                 Card(
-            //       //                   color: Colors.white,
-            //       //                   elevation: 2,
-            //       //                   child: ClipPath(
-            //       //                     child: Container(
-            //       //                       height: height * 0.2,
-            //       //                       width: width / 5,
-            //       //                       child: Padding(
-            //       //                         padding: const EdgeInsets.all(8.0),
-            //       //                         child: Center(
-            //       //                           child: Row(
-            //       //                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //       //                             crossAxisAlignment: CrossAxisAlignment.center,
-            //       //                             children: [
-            //       //                               Column(
-            //       //                                 children: [
-            //       //                                   Icon(
-            //       //                                     Icons.monetization_on_outlined,
-            //       //                                     size: width * 0.05,
-            //       //                                     color: Colors.green,
-            //       //                                   ),
-            //       //                                   Text('Finance')
-            //       //                                 ],
-            //       //                               ),
-            //       //                               Divider(height: height * 0.5,color: Colors.red,),
-            //       //                               Text('12,000',style: TextStyle(
-            //       //                                   fontSize: width * 0.03
-            //       //                               ),)
-            //       //                             ],
-            //       //                           ),
-            //       //                         ),
-            //       //                       ),
-            //       //                       decoration: BoxDecoration(
-            //       //                           border: Border(right: BorderSide(color: Colors.green, width: 5))),
-            //       //                     ),
-            //       //                     clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(
-            //       //                         borderRadius: BorderRadius.circular(3))),
-            //       //                   ),
-            //       //                 ),
-            //       //               ],
-            //       //             ),
-            //       //           ),
-            //       //         ],
-            //       //       ),
-            //       //       Row(
-            //       //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       //         crossAxisAlignment: CrossAxisAlignment.start,
-            //       //         children: [
-            //       //           Card(
-            //       //               color: Colors.white,
-            //       //               elevation: 2,
-            //       //               child: ClipPath(
-            //       //                   child: Container(
-            //       //                       height: height * 0.3,
-            //       //                       width: width /2.5,
-            //       //                       child: Padding(padding: EdgeInsets.all(8.0),
-            //       //                           child: Column(
-            //       //                             children: [
-            //       //                               Padding(
-            //       //                                 padding: const EdgeInsets.all(8.0),
-            //       //                                 child: Row(
-            //       //                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       //                                   children: [
-            //       //                                     Text(
-            //       //                                       'Collection & Expenses',
-            //       //                                       textAlign: TextAlign.center,
-            //       //                                       style: TextStyle(
-            //       //                                         color: Colors.black45,
-            //       //                                         fontWeight: FontWeight.bold,
-            //       //                                       ),
-            //       //                                     ),
-            //       //                                     SizedBox(width: width * 0.1,),
-            //       //                                     Row(
-            //       //                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //       //                                       children: [
-            //       //                                         Icon(Icons.arrow_drop_down,color: Colors.green,),
-            //       //                                         SizedBox(width: width * 0.01,),
-            //       //                                         Icon(Icons.refresh,color: Colors.blue,),
-            //       //                                         SizedBox(width: width * 0.01,),
-            //       //                                         Icon(Icons.cancel,color: Colors.redAccent,),
-            //       //                                       ],
-            //       //                                     ),
-            //       //
-            //       //                                   ],
-            //       //                                 ),
-            //       //                               ),
-            //       //                               Divider(height: height * 0.02,),
-            //       //                               Text('Chart Goes Here ${width /3}')
-            //       //                             ],
-            //       //                           )
-            //       //
-            //       //                       )
-            //       //                   )
-            //       //               )
-            //       //           ),
-            //       //           Card(
-            //       //               color: Colors.white,
-            //       //               elevation: 2,
-            //       //               child: ClipPath(
-            //       //                   child: Container(
-            //       //                       height: height * 0.6,
-            //       //                       width: width /3.5,
-            //       //                       child: Padding(padding: EdgeInsets.all(8.0),
-            //       //                           child: Column(
-            //       //                             children: [
-            //       //                               Padding(
-            //       //                                 padding: const EdgeInsets.all(8.0),
-            //       //                                 child: Row(
-            //       //                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       //                                   children: [
-            //       //                                     Text(
-            //       //                                       'Notice Board',
-            //       //                                       textAlign: TextAlign.center,
-            //       //                                       style: TextStyle(
-            //       //                                         color: Colors.black45,
-            //       //                                         fontWeight: FontWeight.bold,
-            //       //                                       ),
-            //       //                                     ),
-            //       //                                   ],
-            //       //                                 ),
-            //       //                               ),
-            //       //                               Divider(height: height * 0.02,),
-            //       //                               Text('Text Goes Here${width /4}')
-            //       //                             ],
-            //       //                           )
-            //       //
-            //       //                       )
-            //       //                   )
-            //       //               )
-            //       //           ),
-            //       //           Card(
-            //       //               color: Colors.white,
-            //       //               elevation: 2,
-            //       //               child: ClipPath(
-            //       //                   child: Container(
-            //       //                       height: height * 0.6,
-            //       //                       width: width /3.5,
-            //       //                       child: Padding(padding: EdgeInsets.all(8.0),
-            //       //                           child: Column(
-            //       //                             children: [
-            //       //                               Padding(
-            //       //                                 padding: const EdgeInsets.all(8.0),
-            //       //                                 child: Row(
-            //       //                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       //                                   children: [
-            //       //                                     Text(
-            //       //                                       'Recent Activities',
-            //       //                                       textAlign: TextAlign.center,
-            //       //                                       style: TextStyle(
-            //       //                                         color: Colors.black45,
-            //       //                                         fontWeight: FontWeight.bold,
-            //       //                                       ),
-            //       //                                     ),
-            //       //                                   ],
-            //       //                                 ),
-            //       //                               ),
-            //       //                               Divider(height: height * 0.02,),
-            //       //                               Text('Text Goes Here ${width /4}')
-            //       //                             ],
-            //       //                           )
-            //       //
-            //       //                       )
-            //       //                   )
-            //       //               )
-            //       //           ),
-            //       //
-            //       //         ],
-            //       //       ),
-            //       //     ],
-            //       //   ),
-            //       //   Text('are'),
-            //       // ]
-            //   ),
-            // ),
+                    RaisedButton(
+                      color: Colors.grey[100],
+                      onPressed: (){
+                        if(data.contains('Student')){
+                          // initPosition = data.indexOf('Student');
+                          initPosition = data.indexOf('Student');
+                          setState((){});
+                        }else{
+                          setState(() {
+                            data.add('Student');
+                          });
+                          initPosition = data.indexOf('Student');
 
+                          setState((){});
+                        }
+
+                      },
+                      child:  Text('Student'),
+                    ),
+                    RaisedButton(
+                      color: Colors.grey[100],
+                      onPressed: (){
+                        if(data.contains('Exams')){
+                          initPosition = data.indexOf('Exams');
+                          setState((){});
+                        }else{
+                          setState(() {
+                            data.add('Exams');
+                          });
+                          initPosition = data.indexOf('Exams');
+                          print('this is the position${initPosition}');
+                          setState((){});
+                        }
+
+                      },
+                      child:  Text('Exams'),
+                    ),
+                  ],
+                ),
+              ),
+              Card(
+                child: Container(
+                  width: width,
+                  height: height * 0.9,
+                  child: CustomTabView(
+                    initPosition: initPosition,
+                    itemCount: data.length,
+                    tabBuilder: (context, index) => Tab(text: data[index].toString()),
+                    pageBuilder: (context, index) => (
+                        data[index] == 'Dashboard' ?
+                            SchoolDash():
+                        data[index] == 'Student'?
+                            StudentList():
+                        data[index] == 'Exams'?
+                            Exams():
+                        Text('first ${data[index]}')
+                    ),
+
+                    onPositionChange: (index){
+                      print('current position: $index');
+                      initPosition = index;
+                      setState((){});
+                    },
+                    onScroll: (position) => print('$position'), stub: Container(),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
@@ -619,7 +263,8 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
 
   @override
   void initState() {
-    _currentPosition = widget.initPosition ?? 0;
+    // _currentPosition = widget.initPosition ?? 0;
+    _currentPosition = widget.initPosition;
     controller = TabController(
       length: widget.itemCount,
       vsync: this,
@@ -683,17 +328,24 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    if (widget.itemCount < 1) return widget.stub ?? Container();
+    // if (widget.itemCount < 1) return widget.stub ?? Container();
+    if (widget.itemCount < 1) return widget.stub ;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
+          height: MediaQuery.of(context).size.height * 0.04,
+          color: Colors.blueGrey,
           alignment: Alignment.center,
           child: TabBar(
             isScrollable: true,
             controller: controller,
-            labelColor: Theme.of(context).primaryColor,
+            onTap: (index){
+              print('will close');
+    },
+            // labelColor: Theme.of(context).primaryColor,
+            labelColor: Colors.white,
             unselectedLabelColor: Theme.of(context).hintColor,
             indicator: BoxDecoration(
               border: Border(
