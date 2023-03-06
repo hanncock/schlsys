@@ -1,130 +1,4 @@
-// import 'package:flutter/material.dart';
-//
-// class Documents extends StatefulWidget {
-//   const Documents({Key? key}) : super(key: key);
-//
-//   @override
-//   State<Documents> createState() => _DocumentsState();
-// }
-//
-// class _DocumentsState extends State<Documents> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Column(
-//         children: [
-//           Text('documents is here')
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  List<String> data = ['Page 0', 'Page 1', 'Page 2'];
-  int initPosition = 1;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Text('soke'),
-          Container(
-            width: 400,
-            height: 200,
-            child: CustomTabView(
-              initPosition: initPosition,
-              itemCount: data.length,
-              tabBuilder: (context, index) => Tab(text: data[index]),
-              pageBuilder: (context, index) => Center(child: Text(data[index])),
-              onPositionChange: (index){
-                print('current position: $index');
-                initPosition = index;
-              },
-              onScroll: (position) => print('$position'), stub: Container(),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton:FloatingActionButton.extended(
-          onPressed: (){},
-          label: Container(
-            width: 100,
-            height: 100,
-            child: Row(
-              children: [
-                RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      data.add('Page ${data.length}');
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      Icon(Icons.add),
-                    ],
-                  ),
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    print('will remove');
-                    setState(() {
-                      data.remove('Page ${data.length}');
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      Icon(Icons.remove),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-      )
-
-      // Row(
-      //   children: [
-      //     FloatingActionButton(
-      //       onPressed: () {
-      //         setState(() {
-      //           data.add('Page ${data.length}');
-      //         });
-      //       },
-      //       child: Row(
-      //         children: [
-      //           Icon(Icons.add),
-      //         ],
-      //       ),
-      //     ),
-      //     FloatingActionButton(
-      //       onPressed: () {
-      //         setState(() {
-      //           data.remove('Page ${data.length}');
-      //         });
-      //       },
-      //       child: Row(
-      //         children: [
-      //           Icon(Icons.add),
-      //         ],
-      //       ),
-      //     ),
-      //   ],
-      // ),
-
-    );
-  }
-}
-
-/// Implementation
 
 class CustomTabView extends StatefulWidget {
   final int itemCount;
@@ -133,7 +7,7 @@ class CustomTabView extends StatefulWidget {
   final Widget stub;
   final ValueChanged<int> onPositionChange;
   final ValueChanged<double> onScroll;
-  final int initPosition;
+  final int modinitPosition;
 
   CustomTabView({
     required this.itemCount,
@@ -142,7 +16,7 @@ class CustomTabView extends StatefulWidget {
     required this.stub,
     required this.onPositionChange,
     required this.onScroll,
-    required this.initPosition,
+    required this.modinitPosition,
   });
 
   @override
@@ -156,7 +30,8 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
 
   @override
   void initState() {
-    _currentPosition = widget.initPosition ;
+    // _currentPosition = widget.initPosition ?? 0;
+    _currentPosition = widget.modinitPosition;
     controller = TabController(
       length: widget.itemCount,
       vsync: this,
@@ -165,6 +40,7 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
     controller.addListener(onPositionChange);
     controller.animation?.addListener(onScroll);
     _currentCount = widget.itemCount;
+    setState((){});
     super.initState();
   }
 
@@ -175,8 +51,8 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
       controller.removeListener(onPositionChange);
       controller.dispose();
 
-      if (widget.initPosition != null) {
-        _currentPosition = widget.initPosition;
+      if (widget.modinitPosition != null) {
+        _currentPosition = widget.modinitPosition;
       }
 
       if (_currentPosition > widget.itemCount - 1) {
@@ -202,8 +78,8 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
         controller.addListener(onPositionChange);
         controller.animation?.addListener(onScroll);
       });
-    } else if (widget.initPosition != null) {
-      controller.animateTo(widget.initPosition);
+    } else if (widget.modinitPosition != null) {
+      controller.animateTo(widget.modinitPosition);
     }
 
     super.didUpdateWidget(oldWidget);
@@ -219,12 +95,15 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
+    // if (widget.itemCount < 1) return widget.stub ?? Container();
     if (widget.itemCount < 1) return widget.stub ;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height * 0.04,
           alignment: Alignment.center,
           child: TabBar(
             isScrollable: true,
@@ -273,5 +152,3 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
     }
   }
 }
-
-
