@@ -1,0 +1,21 @@
+CREATE DATABASE ekso;
+
+USE ekso;
+
+CREATE TABLE profile(
+    id int(10) primary key not null unique,
+    name text(20) not null,
+    otherNames text(50) not null,
+    gender text(20),
+    email varchar(50),
+    phone_num int(12),
+    photo varchar(30),
+    username varchar(30),
+    password varchar(30)
+);
+
+create table credentials(
+    id int(10) primary key not null unique,
+    username text(50) not null,
+    password varchar(50) not null,
+);

@@ -260,12 +260,19 @@ packages:
     source: hosted
     version: "0.2.7"
   xml:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.0"
+  xml2json:
+    dependency: "direct main"
+    description:
+      name: xml2json
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.3.6"
 sdks:
   dart: ">=2.18.0 <3.0.0"
   flutter: ">=2.11.0-0.1.pre"

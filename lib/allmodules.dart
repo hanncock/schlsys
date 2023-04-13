@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web1/HomePage.dart';
+import 'package:web1/settings/create_user.dart';
 import 'package:web1/smsscreen/sms.dart';
 import 'package:web1/tabViews.dart';
 import 'models/listViewModel.dart';
@@ -32,6 +33,11 @@ class _ModulesState extends State<Modules> {
       label: 'Settings',
       title: 'Settings',
       icon: Icon(Icons.settings,size: 80,),
+    ),
+    ModuleDetail(
+      label: 'Vehicle',
+      title: 'VMS',
+      icon: Icon(Icons.directions_bus_outlined,size: 80,),
     ),
   ];
 
@@ -84,8 +90,8 @@ class _ModulesState extends State<Modules> {
                 HomePage():
                 modules[index] == 'DocumentSys'?
                 Text('document'):
-                modules[index] == "SMS" ?
-                Messaging():
+                modules[index] == "Settings" ?
+                Createuser():
                 modules[index] == "SMS" ?
                 Messaging():
                 Text('first ${modules[index]}')

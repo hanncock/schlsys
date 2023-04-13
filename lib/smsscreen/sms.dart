@@ -1,6 +1,9 @@
+import 'dart:convert';
+import 'package:xml/xml.dart' as xml;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:xml2json/xml2json.dart';
 import '../config/SizeConfig.dart';
 import '../style/colors.dart';
 
@@ -15,6 +18,7 @@ class _MessagingState extends State<Messaging> {
 
   var selected = 'singleuser';
   var phoneNum;
+  var message;
   var messages = [
     'welcome',
     'how are you',
@@ -30,6 +34,40 @@ class _MessagingState extends State<Messaging> {
   ScrollController listScrollController = ScrollController();
   void clearText() {
     fieldText.clear();
+  }
+
+  sendSms(phoneNum,message)async{
+
+    var url = 'https://api.africastalking.com/version1/messaging';
+    var bodyFields = {
+        'username': 'soke',
+        'to': '0773731115',
+        'message': message
+      };
+    final response = await http.post(Uri.parse(url),
+        body: bodyFields,
+        headers: {
+          'apikey': '41928f753d83cfa1c413d2ff71075de523f385b7b8a0a267b334353547ee8a6e',
+          'Accept': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded'
+          // 'Content-Type':'application/json; charset-UTF-8'
+        }
+    );
+    // print(response.body);
+    var data = jsonDecode(response.body);
+    print(data['SMSMessageData']['Recipients']);
+
+
+
+    // var url = 'https://api.africastalking.com/version1/messaging?username=soke&lastReceivedId=ATXid_719a132c745b0b438020e19a6ad240c5';
+    // var url = 'https://api.africastalking.com/version1/messaging?username=soke';
+    // final response = await http.get(Uri.parse(url),
+    //     headers: {
+    //       'apikey': '41928f753d83cfa1c413d2ff71075de523f385b7b8a0a267b334353547ee8a6e',
+    //       'Accept': 'application/json'
+    //     }
+    // );
+    // print(response.body);
   }
 
   @override
@@ -181,14 +219,15 @@ class _MessagingState extends State<Messaging> {
                               child: TextFormField(
                                 controller: fieldText,
                                 onFieldSubmitted: (value) {
+                                  print(value);
                                   setState((){
+                                    message = value;
                                     messages.add(value);
                                     listScrollController.position.maxScrollExtent;
                                   });
-
+                                  sendSms("num",message);
                                   if (listScrollController.hasClients) {
                                     final position = listScrollController.position.maxScrollExtent;
-                                    print('th is the ${position}');
                                     listScrollController.jumpTo(position + 50);
                                   }
                                   // _scrollController.animateTo(_scrollController.position.maxScrollExtent);
