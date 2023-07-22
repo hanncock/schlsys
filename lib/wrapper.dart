@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:web1/custom_tab/customset.dart';
 import 'package:web1/screens_with_models/authentication/login.dart';
 import 'package:web1/service/apis.dart';
+import 'package:web1/settings/companies.dart';
 import 'package:web1/settings/create_company.dart';
 import 'package:web1/settings/create_user.dart';
+import 'package:web1/settings/main_settings.dart';
 import 'package:web1/smsscreen/sms.dart';
 
 import 'allmodules.dart';
@@ -37,16 +39,24 @@ class _WrapperState extends State<Wrapper> {
 
     }else{
 
-      print(jsonDecode(data));
+      // print(jsonDecode(data));
       setState(() {
         Userdata = jsonDecode(data);
         currentUser = "${Userdata['fName']} ${Userdata['sName']}";
       });
+
+
+      // flutter how to make a tab not refresh its state
       widget.sessionStateStream.add(SessionState.stopListening);
 
       // Navigator.push(context, MaterialPageRoute(builder: (_) =>  Modules(sessionStateStream: widget.sessionStateStream,)));
       // Navigator.push(context, MaterialPageRoute(builder: (_) =>  Messaging(sessionStateStream: widget.sessionStateStream)));
-      Navigator.push(context, MaterialPageRoute(builder: (_) =>  CreateCompany(sessionStateStream: widget.sessionStateStream)));
+      // Navigator.push(context, MaterialPageRoute(builder: (_) =>  Createuser(sessionStateStream: widget.sessionStateStream)));
+      // Navigator.push(context, MaterialPageRoute(builder: (_) =>  CreateCompany(sessionStateStream: widget.sessionStateStream)));
+      // Navigator.push(context, MaterialPageRoute(builder: (_) =>  Companies(sessionStateStream: widget.sessionStateStream)));
+      // Navigator.push(context, MaterialPageRoute(builder: (_) =>  Settings(sessionStateStream: widget.sessionStateStream)));
+      // Navigator.push(context, MaterialPageRoute(builder: (_) =>  Companies()));
+      Navigator.push(context, MaterialPageRoute(builder: (_) =>  CustomSet(sessionStateStream: widget.sessionStateStream,)));
       widget.sessionStateStream.add(SessionState.startListening);
 
     }
@@ -64,7 +74,7 @@ class _WrapperState extends State<Wrapper> {
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
-        child: Text('$Userdata ?? --- '),
+        child: Text('${Userdata ?? '---' }'),
       ),
     );
   }

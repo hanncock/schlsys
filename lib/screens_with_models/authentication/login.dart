@@ -159,15 +159,19 @@ class _LoginState extends State<Login> {
                                     Navigator.of(context).pop();
 
                                     if (resu is User) {
-                                      var showToast = Fluttertoast.showToast(
-                                          msg: 'Login Success',
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 3,
-                                          backgroundColor: Colors.green,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0
+                                      SnackBar(
+                                        backgroundColor: Colors.green,
+                                        content: Text('Login Success'),
                                       );
+                                      // var showToast = Fluttertoast.showToast(
+                                      //     msg: 'Login Success',
+                                      //     toastLength: Toast.LENGTH_SHORT,
+                                      //     gravity: ToastGravity.CENTER,
+                                      //     timeInSecForIosWeb: 3,
+                                      //     backgroundColor: Colors.green,
+                                      //     textColor: Colors.white,
+                                      //     fontSize: 16.0
+                                      // );
                                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>Messaging(sessionStateStream: widget.sessionStateStream)));
                                       Navigator.push(context, MaterialPageRoute(
                                           builder: (_) => Wrapper(
@@ -177,19 +181,13 @@ class _LoginState extends State<Login> {
 
 
                                     } else {
-                                      var showToast = Fluttertoast.showToast(
-                                          msg: resu["data"],
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 3,
-                                          backgroundColor: Colors.red,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0
+                                      SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content: Text('${resu["data"]}'),
                                       );
                                     }
                                     // Navigator.push(context, MaterialPageRoute(builder: (_) =>  Modules()));
                                   }
-                                  // await FlutterSession.set('token', user);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     primary: Colors.deepPurple,

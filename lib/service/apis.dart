@@ -7,10 +7,8 @@ import 'package:web1/screens_with_models/authentication/login_model.dart';
 import 'package:web1/wrapper.dart';
 
 class AuthService{
-  String url ='https://6dc1-105-161-3-1.ngrok-free.app';
+  String url ='https://181d-197-248-34-79.ngrok-free.app';
 
-  // var currentUser = "${Userdata['fName']} ${Userdata['sName']}";
-  // String url ='http://105.161.3.1:3000';
 
   Map<String, String> headers = {
     "Access-Control-Allow-Origin": "*",
@@ -30,8 +28,9 @@ class AuthService{
     var response = await http.post(Uri.parse(all), body: send, headers: headers);
 
     var response_data = jsonDecode(response.body);
-    print(response_data);
-    if(response_data['success']){
+    // print(response_data['success']);
+    // print(response_data['data']);
+    if(response_data['success'] == true){
 
       var creds = [username,password];
       SharedPreferences pref = await SharedPreferences.getInstance();
@@ -39,15 +38,27 @@ class AuthService{
 
       pref.setString("userCreds", jsonEncode(creds));
 
-      return(User.fromJson(jsonDecode(response.body)['data']));
+      // return(User.fromJson(jsonDecode(response.body)['data']));
+      return(User.fromJson(response_data['data']));
     }else {
         return response_data;
       }
   }
 
+  // var memberStatement = await userData[0] + '/live/api/sacco_members/statementpdf?membershipId='+userData[1]['saccoMembershipId'].toString();
+  // print(memberStatement);
+  // try{
+  // var resposne = await get(Uri.parse(memberStatement));
+  // var jsondata = jsonDecode(resposne.body);
+  // return jsondata['message'];
+  // // var data = await http.get(Uri.parse(jsondata['message']));
+  // // return data.bodyBytes;
+  // }catch(e){
+  // return e.toString();
+  // }
+
   ff() async {
     String getItemCatalog = "https://3a04-197-248-34-79.ngrok-free.app/api/users/list";
-    //'$url/users/login';//userData[0].toString() +'/live/api/itemcatalog/list?companyId='+defaultCompanyId.toString();
     print(getItemCatalog);
     try{
       var response =  await get(Uri.parse(getItemCatalog));
@@ -75,10 +86,66 @@ class AuthService{
 
     var send = jsonEncode(data);
     print(send);
-    // var response = await http.post(Uri.parse(all), body: send, headers: headers);
-    // var response_data = jsonDecode(response.body);
-    // return response_data;
+    var response = await http.post(Uri.parse(all), body: send, headers: headers);
+    var response_data = jsonDecode(response.body);
+    return response_data;
 
+  }
+
+
+  companyAdd( companyName,companyEmail,companyRegNo,companyAddress,companyWebsite,companyLogo,companytaxpin,companyphone,companycountry,companytown,companyroad)async{
+
+
+    var all = '$url/api/companies/add';
+
+    Map data = {
+    "name":companyName,
+    "email":companyEmail,
+    "regNo":companyRegNo,
+    "address":companyAddress,
+    "website":companyWebsite,
+    "logo":companyLogo,
+    "taxpin":companytaxpin,
+    "phone":companyphone,
+    "country":companycountry,
+    "town": companytown,
+    "road":companyroad
+    };
+
+    var send = jsonEncode(data);
+    print(send);
+    var response = await http.post(Uri.parse(all), body: send, headers: headers);
+    var response_data = jsonDecode(response.body);
+    return response_data;
+
+  }
+
+  companies()async{
+    String getcompanies = "$url/api/companies/list";
+    try{
+      var response =  await get(Uri.parse(getcompanies));
+      var jsondata = jsonDecode(response.body);
+      print(jsondata);
+      return jsondata['data'];
+    }catch(e){
+      return e.toString();
+    }
+  }
+
+  companyBranchesAdd(branchId,companyId,branchName)async{
+    var all = '$url/api/companybranches/add';
+
+    Map data = {
+      "branchId":branchId,
+      "companyId":companyId,
+      "branchName":branchName
+    };
+
+    var send = jsonEncode(data);
+    print(send);
+    var response = await http.post(Uri.parse(all), body: send, headers: headers);
+    var response_data = jsonDecode(response.body);
+    return response_data;
   }
 
 

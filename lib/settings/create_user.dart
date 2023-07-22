@@ -30,8 +30,7 @@ class _CreateuserState extends State<Createuser> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.all(15),
         child: Form(
           key: userForm,
@@ -493,7 +492,6 @@ class _CreateuserState extends State<Createuser> {
                 ],
               ),
               SizedBox(height: 4.h,),
-              Text('${Userdata['fName']}''${Userdata['sName']}'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -523,7 +521,6 @@ class _CreateuserState extends State<Createuser> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

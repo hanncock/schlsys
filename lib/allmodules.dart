@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:web1/HomePage.dart';
 import 'package:web1/settings/create_user.dart';
+import 'package:web1/settings/main_settings.dart';
 import 'package:web1/smsscreen/sms.dart';
 import 'package:web1/tabViews.dart';
 import 'package:web1/wrapper.dart';
@@ -58,7 +59,7 @@ class _ModulesState extends State<Modules> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text('${Userdata['fName']}'),
+            Text('${Userdata['firstName']}'),
             Container(
               width: width,
               height: height * 0.8,
@@ -101,7 +102,8 @@ class _ModulesState extends State<Modules> {
                     modules[index] == 'DocumentSys'?
                     Text('document'):
                     modules[index] == "Settings" ?
-                    Createuser(sessionStateStream: widget.sessionStateStream,):
+                    // Createuser(sessionStateStream: widget.sessionStateStream,):
+                    Settings(sessionStateStream: widget.sessionStateStream,):
                     modules[index] == "SMS" ?
                     Messaging(sessionStateStream: widget.sessionStateStream,):
                     Text('first ${modules[index]}')

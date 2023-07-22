@@ -28,12 +28,12 @@ class User{
 
   factory User.fromJson(Map<dynamic, dynamic>json){
     return User(
-        id: json['id'],
-        fName: json['fName'],
-        sName: json['sName'],
-        idNo: json['id'],
+        id: json['userId'],
+        fName: json['firstName'],
+        sName: json['otherNames'],
+        idNo: json['idNo'],
         email: json['email'],
-        phoneNum: json['phoneNum']
+        phoneNum: json['phone']
     );
   }
 
