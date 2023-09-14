@@ -17,13 +17,13 @@ class AppBarActionItems extends StatelessWidget {
             width: 20.0,
           ),
         ),
-        SizedBox(width: 10,),
+        const SizedBox(width: 10,),
         IconButton(
             onPressed: (){},
             icon: SvgPicture.asset('ring.svg')
         ),
-        SizedBox(width: 15.0,),
-        Row(
+        const SizedBox(width: 15.0,),
+        const Row(
           children: [
             CircleAvatar(
               radius: 17,

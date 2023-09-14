@@ -3,18 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:web1/HomePage.dart';
-import 'package:web1/settings/create_user.dart';
-import 'package:web1/settings/main_settings.dart';
-import 'package:web1/smsscreen/sms.dart';
+import 'package:web1/custom_tab/customset.dart';
 import 'package:web1/tabViews.dart';
 import 'package:web1/wrapper.dart';
+import 'messaging/Sms/sms.dart';
 import 'models/listViewModel.dart';
 import 'models/modulesViewer.dart';
 
 class Modules extends StatefulWidget {
-  // Session session;
   final StreamController<SessionState> sessionStateStream;
-   Modules({Key? key, required this.sessionStateStream}) : super(key: key);
+   const Modules({Key? key, required this.sessionStateStream}) : super(key: key);
 
   @override
   State<Modules> createState() => _ModulesState();
@@ -29,22 +27,27 @@ class _ModulesState extends State<Modules> {
     ModuleDetail(
       label: 'SchoolSys',
       title: 'School',
-      icon: Icon(Icons.school,size: 80,),
+      icon: const Icon(Icons.school,size: 80,),
     ),
     ModuleDetail(
       label: 'SMS',
       title: 'Messaging',
-      icon: Icon(Icons.sms,size: 80,),
+      icon: const Icon(Icons.sms,size: 80,),
     ),
     ModuleDetail(
       label: 'Settings',
       title: 'Settings',
-      icon: Icon(Icons.settings,size: 80,),
+      icon: const Icon(Icons.settings,size: 80,),
     ),
     ModuleDetail(
       label: 'Vehicle',
       title: 'VMS',
-      icon: Icon(Icons.directions_bus_outlined,size: 80,),
+      icon: const Icon(Icons.directions_bus_outlined,size: 80,),
+    ),
+    ModuleDetail(
+      label: 'Email',
+      title: 'Email',
+      icon: const Icon(Icons.mail,size: 80,),
     ),
   ];
 
@@ -60,7 +63,7 @@ class _ModulesState extends State<Modules> {
         child: Column(
           children: [
             Text('${Userdata['firstName']}'),
-            Container(
+            SizedBox(
               width: width,
               height: height * 0.8,
               child: CustomTabView(
@@ -98,12 +101,13 @@ class _ModulesState extends State<Modules> {
                         }
                     ):
                     modules[index] == 'SchoolSys'?
-                    HomePage():
+                    const HomePage():
                     modules[index] == 'DocumentSys'?
-                    Text('document'):
+                    const Text('document'):
                     modules[index] == "Settings" ?
                     // Createuser(sessionStateStream: widget.sessionStateStream,):
-                    Settings(sessionStateStream: widget.sessionStateStream,):
+                    // Settings(sessionStateStream: widget.sessionStateStream,):
+                    CustomSet(sessionStateStream: widget.sessionStateStream,):
                     modules[index] == "SMS" ?
                     Messaging(sessionStateStream: widget.sessionStateStream,):
                     Text('first ${modules[index]}')

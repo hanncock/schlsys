@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../style/colors.dart';
 
 class BarChartComponent extends StatelessWidget{
+  const BarChartComponent({super.key});
+
   @override
   Widget build(BuildContext context){
     return BarChart(

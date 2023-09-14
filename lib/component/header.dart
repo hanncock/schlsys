@@ -11,7 +11,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(
+        const SizedBox(
           child: Column(
             children: [
               PrimaryText(text: 'Dashboard',size: 30.0,fontWeight: FontWeight.w800,),
@@ -19,25 +19,25 @@ class Header extends StatelessWidget {
             ],
           ),
         ),
-        Spacer(flex: 1,),
+        const Spacer(flex: 1,),
         Expanded(
           flex: Responsive.isDesktop(context) ? 1 : 2,
             child: TextField(
               decoration: InputDecoration(
                   filled: true,
                   fillColor: AppColors.white,
-                  contentPadding: EdgeInsets.only(left: 40,right: 3.0),
+                  contentPadding: const EdgeInsets.only(left: 40,right: 3.0),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(color: AppColors.white)
+                      borderSide: const BorderSide(color: AppColors.white)
                   ),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide(color: AppColors.white)
+                      borderSide: const BorderSide(color: AppColors.white)
                   ),
-                  prefixIcon: Icon(Icons.search, color: AppColors.black,),
+                  prefixIcon: const Icon(Icons.search, color: AppColors.black,),
                   hintText: 'Search',
-                  hintStyle: TextStyle(color: AppColors.secondary,fontSize: 14.0)
+                  hintStyle: const TextStyle(color: AppColors.secondary,fontSize: 14.0)
               ),
             )
         )

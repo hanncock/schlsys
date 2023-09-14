@@ -12,7 +12,7 @@ class Homedrawwer extends StatefulWidget {
 }
 
 class _HomedrawwerState extends State<Homedrawwer> {
-  SizeConfig config = new SizeConfig();
+  SizeConfig config = SizeConfig();
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -28,7 +28,7 @@ class _HomedrawwerState extends State<Homedrawwer> {
               Container(
                 height: 100,
                 alignment: Alignment.topCenter,
-                padding: EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 20),
                 child: SizedBox(
                   width: 35,
                   height: 35,
@@ -44,7 +44,7 @@ class _HomedrawwerState extends State<Homedrawwer> {
                   color: AppColors.iconGray,
                 ),
                 iconSize: 20,
-                padding: EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
               ),
               IconButton(
                 onPressed: (){},
@@ -53,7 +53,7 @@ class _HomedrawwerState extends State<Homedrawwer> {
                   color: AppColors.iconGray,
                 ),
                 iconSize: 20,
-                padding: EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
               ),
               IconButton(
                 onPressed: (){},
@@ -62,7 +62,7 @@ class _HomedrawwerState extends State<Homedrawwer> {
                   color: AppColors.iconGray,
                 ),
                 iconSize: 20,
-                padding: EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
               ),
               IconButton(
                 onPressed: (){},
@@ -71,7 +71,7 @@ class _HomedrawwerState extends State<Homedrawwer> {
                   color: AppColors.iconGray,
                 ),
                 iconSize: 20,
-                padding: EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
               ),
               IconButton(
                 onPressed: (){},
@@ -80,7 +80,7 @@ class _HomedrawwerState extends State<Homedrawwer> {
                   color: AppColors.iconGray,
                 ),
                 iconSize: 20,
-                padding: EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
               ),
               IconButton(
                 onPressed: (){},
@@ -89,7 +89,7 @@ class _HomedrawwerState extends State<Homedrawwer> {
                   color: AppColors.iconGray,
                 ),
                 iconSize: 20,
-                padding: EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
               )
             ],
           ),

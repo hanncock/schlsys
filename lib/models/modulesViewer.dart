@@ -7,16 +7,16 @@ class ModuleViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 10,
       height: 10,
       child: Card(
-        color: Color(0xffececf6),
+        color: const Color(0xffececf6),
         child: Center(child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             moduleDetail.icon,
-            Text('${moduleDetail.title}'),
+            Text(moduleDetail.title),
           ],
         )),
       ),

@@ -21,8 +21,8 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(minWidth: 250),
-      padding: EdgeInsets.only(top: 20,left: 20,bottom: 40.0),
+      constraints: const BoxConstraints(minWidth: 250),
+      padding: const EdgeInsets.only(top: 20,left: 20,bottom: 40.0),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: AppColors.white
@@ -30,7 +30,7 @@ class InfoCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SvgPicture.asset('${icon}',width: 35.0,),
+          SvgPicture.asset('$icon',width: 35.0,),
           SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
           PrimaryText(text: label,color: AppColors.secondary,size: 16.0,),
           SizedBox(height: SizeConfig.blockSizeVertical! * 2,),

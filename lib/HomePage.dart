@@ -18,13 +18,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       key: _drawerKey,
-      drawer: SizedBox(width: 100, child: Homedrawwer(),),
+      drawer: const SizedBox(width: 100, child: Homedrawwer(),),
       appBar: !Responsive.isDesktop(context) ? AppBar(
         elevation: 0,
         backgroundColor: AppColors.white,
@@ -32,39 +32,39 @@ class _HomePageState extends State<HomePage> {
           onPressed: (){
             _drawerKey.currentState?.openDrawer();
           },
-          icon: Icon(Icons.menu,color: AppColors.black,),
+          icon: const Icon(Icons.menu,color: AppColors.black,),
         ),
-        actions: [
+        actions: const [
           AppBarActionItems()
         ],
-      ): PreferredSize(
-        child: SizedBox(),
-        preferredSize: Size.zero),
+      ): const PreferredSize(
+        preferredSize: Size.zero,
+        child: SizedBox()),
       body: SafeArea(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if(Responsive.isDesktop(context))
-              Expanded(
+              const Expanded(
                   flex: 1,
                   child: Homedrawwer()
               ),
               Expanded(
                   flex: 10,
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     height: SizeConfig.screenHeight,
                     child: SingleChildScrollView(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 30.0,horizontal: 30.0),
+                        padding: const EdgeInsets.symmetric(vertical: 30.0,horizontal: 30.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Header(),
+                            const Header(),
                             SizedBox(height: SizeConfig.blockSizeVertical! * 4,),
                             SizedBox(
                               width: SizeConfig.screenWidth,
-                              child: Wrap(
+                              child: const Wrap(
                                 runSpacing: 20.0,
                                 spacing: 20.0,
                                 alignment: WrapAlignment.spaceBetween,
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             SizedBox(height: SizeConfig.blockSizeVertical! * 4,),
-                            Row(
+                            const Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -108,12 +108,12 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                             SizedBox(height: SizeConfig.blockSizeVertical! * 3,),
-                            Container(
+                            const SizedBox(
                               height: 180,
                               child: BarChartComponent(),
                             ),
                             SizedBox(height: SizeConfig.blockSizeVertical! * 5,),
-                            Column(
+                            const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 PrimaryText(text: 'History',size: 30,color: AppColors.secondary,),
@@ -135,17 +135,17 @@ class _HomePageState extends State<HomePage> {
                                       children:[
                                         Container(
                                           alignment: Alignment.centerLeft,
-                                          padding: EdgeInsets.only(top: 10,bottom:10,left: 20 ),
-                                          child: CircleAvatar(
+                                          padding: const EdgeInsets.only(top: 10,bottom:10,left: 20 ),
+                                          child: const CircleAvatar(
                                             radius: 17,
                                               // backgroundImage: NetworkImage(''),
                                             backgroundColor: Colors.blue,
                                           ),
                                         ),
-                                        PrimaryText(text: 'Car Insurance',size: 16,color: AppColors.secondary,),
-                                        PrimaryText(text: '10;42:23 AM',size: 16,color: AppColors.secondary,),
-                                        PrimaryText(text: '\$350',size: 16,color: AppColors.secondary,),
-                                        PrimaryText(text: 'Completed',size: 16,color: AppColors.secondary,),
+                                        const PrimaryText(text: 'Car Insurance',size: 16,color: AppColors.secondary,),
+                                        const PrimaryText(text: '10;42:23 AM',size: 16,color: AppColors.secondary,),
+                                        const PrimaryText(text: '\$350',size: 16,color: AppColors.secondary,),
+                                        const PrimaryText(text: 'Completed',size: 16,color: AppColors.secondary,),
                                       ]
                                     )
                                   ],
@@ -165,17 +165,17 @@ class _HomePageState extends State<HomePage> {
                     width: double.infinity,
                     height: SizeConfig.screenHeight,
                     color: AppColors.secondaryBg,
-                    padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
+                    padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 30.0),
                     child: Column(
                       children: [
-                        AppBarActionItems(),
+                        const AppBarActionItems(),
                         Column(
                           children: [
                             // SizedBox(height: SizeConfig.blockSizeVertical! * 5,),
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
-                                boxShadow: [BoxShadow(
+                                boxShadow: const [BoxShadow(
                                   color: AppColors.iconGray,
                                   blurRadius: 15.0,
                                   offset: Offset(10.0, 15.0)
@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                               child: Image.asset('card.png'),
                             ),
                             SizedBox(height: SizeConfig.blockSizeVertical! * 5,),
-                            Column(
+                            const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 PrimaryText(text: 'Recent Activities', size: 18, fontWeight: FontWeight.w800,),
@@ -193,19 +193,19 @@ class _HomePageState extends State<HomePage> {
                             ),
                             SizedBox(height: SizeConfig.blockSizeVertical! * 2,),
                             ListTile(
-                              contentPadding: EdgeInsets.only(left: 0,right: 20),
+                              contentPadding: const EdgeInsets.only(left: 0,right: 20),
                               visualDensity: VisualDensity.standard,
                               leading: Container(
                                 width: 50.0,
-                                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                                 decoration: BoxDecoration(
                                   color: AppColors.white,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: SvgPicture.asset('drop.svg',width: 20.0,),
                               ),
-                              title: PrimaryText(text: "Water Bill",size: 14.0, fontWeight: FontWeight.w300,),
-                              subtitle: Row(
+                              title: const PrimaryText(text: "Water Bill",size: 14.0, fontWeight: FontWeight.w300,),
+                              subtitle: const Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   PrimaryText(text: "Succesfully", size: 12.0,color: AppColors.secondary,),

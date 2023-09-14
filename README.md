@@ -27,6 +27,12 @@ https://www.flutterclutter.dev/flutter/tutorials/how-to-create-a-number-input/20
 https://pub.dev/packages/local_session_timeout/example
 https://www.youtube.com/watch?v=2QK79dM3Gdg -- overlay login window
 
+fix xmhlerror
+https://www.youtube.com/watch?v=GtgJyYFGvPQ
+
+
 flutter run -d chrome --web-renderer html
 flutter build web --web-renderer html
 flutter run -d chrome --web-browser-flag "--disable-web-security"
+
+flutter build web --web-renderer html --release

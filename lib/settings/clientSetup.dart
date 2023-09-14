@@ -1,37 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:sizer/sizer.dart';
-import 'package:web1/settings/create_company.dart';
-import 'package:web1/widgets/loading.dart';
+import 'package:web1/settings/client_setup_details.dart';
+
+import '../widgets/loading.dart';
 import '../wrapper.dart';
 
-class Companies extends StatefulWidget {
-  const Companies({Key? key}) : super(key: key);
+class ClientSetup extends StatefulWidget {
+  const ClientSetup({Key? key}) : super(key: key);
 
   @override
-  State<Companies> createState() => _CompaniesState();
+  State<ClientSetup> createState() => _ClientSetupState();
 }
 
-class _CompaniesState extends State<Companies> {
+class _ClientSetupState extends State<ClientSetup> {
 
-  List companies = [];
-  var currentCompany;
+  List clients = [];
 
-
-  getCompanies()async{
-    print('fetching companies');
-    var resu = await auth.companies();
+  getClients()async{
+    print('fetching clients');
+    var resu = await auth.clients();
     setState(() {
-      companies = resu;
+      clients = resu;
     });
   }
 
-  @override
-  void initState(){
-    getCompanies();
-  }
 
-  addEditCompany(var companyDetails){
+  addEditClient(var clientDet){
     showDialog(
         context: context,
         builder: (BuildContext context){
@@ -44,13 +39,20 @@ class _CompaniesState extends State<Companies> {
                     // child: Text('soke'),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: CreateCompany(sessionStateStream: session, companyDetails: companyDetails,),
+                      child: ClientSetupDetails(sessionStateStream: session, clientDetails: clientDet,),
                     ),
                   ),
                 );
               });
         });
   }
+
+  @override
+  void initState(){
+    getClients();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +63,7 @@ class _CompaniesState extends State<Companies> {
               Card(
                 elevation: 0,
                 child: Container(
-                   width: 12.w,
+                    width: 12.w,
                     height: 5.h,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -69,13 +71,13 @@ class _CompaniesState extends State<Companies> {
                     ),
                     child: const Padding(
                       padding: EdgeInsets.all(10.0),
-                      child: Text('Search company'),
+                      child: Text('Search Clients'),
                     )
                 ),
               ),
               ElevatedButton(
                 onPressed: () {
-                  addEditCompany(null);
+                  addEditClient(null);
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -84,7 +86,7 @@ class _CompaniesState extends State<Companies> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  getCompanies();
+                  getClients();
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -92,20 +94,19 @@ class _CompaniesState extends State<Companies> {
                 ),
               )
             ],),
-          const Divider(),
-          companies.isEmpty ?  const Center(child: LoadingSpinCircle(),):
+          clients.isEmpty ?  const Center(child: LoadingSpinCircle(),):
           Card(
             elevation: 2,
             child: Container(
               width: width,
-              height: height -168,
+              height: height -150,
               child: HorizontalDataTable(
                 rowSeparatorWidget: const Divider(
                   color: Colors.black12,
                   height: 1.0,
                   thickness: 0.0,
                 ),
-                itemCount: companies.length ?? 0,
+                itemCount: clients.length ?? 0,
                 leftHandSideColumnWidth: 10.w,
                 rightHandSideColumnWidth: 90.w,
                 isFixedHeader: true,
@@ -113,7 +114,7 @@ class _CompaniesState extends State<Companies> {
                 leftSideItemBuilder: (BuildContext context, index){
                   return InkWell(
                     onDoubleTap: (){
-                      addEditCompany([companies[index]]);
+                      addEditClient([clients[index]]);
                     },
                     onTap: (){
 
@@ -124,14 +125,14 @@ class _CompaniesState extends State<Companies> {
                         color: index.isOdd?Colors.grey[100]:Colors.white,
                         padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                         alignment: Alignment.centerLeft,
-                        child: Text('${companies[index]['name']}')
+                        child: Text('${clients[index]['clientName']}')
                     ),
                   );
                 },
                 rightSideItemBuilder: (BuildContext context, index){
                   return InkWell(
                     onDoubleTap: (){
-                      addEditCompany([companies[index]]);
+                      addEditClient([clients[index]]);
                     },
                     onTap: (){
 
@@ -139,36 +140,45 @@ class _CompaniesState extends State<Companies> {
                     child: Row(
                       children: [
                         Container(
-                          width: 10.w,
-                          height: 52,
+                            width: 10.w,
+                            height: 52,
                             color: index.isOdd?Colors.grey[100]:Colors.white,
                             padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                          alignment: Alignment.centerLeft,
-                          child: Text('${companies[index]['email']}')
+                            alignment: Alignment.centerLeft,
+                            child: Text('${clients[index]['clientEmail']}')
                         ),
                         Container(
-                          width: 10.w,
-                          height: 52,
+                            width: 10.w,
+                            height: 52,
                             color: index.isOdd?Colors.grey[100]:Colors.white,
                             padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                          alignment: Alignment.centerLeft,
-                          child: Text('${companies[index]['regNo']}')
+                            alignment: Alignment.centerLeft,
+                            child: Text('${clients[index]['clientPhone']}')
                         ),
                         Container(
-                          width: 10.w,
-                          height: 52,
+                            width: 10.w,
+                            height: 52,
                             color: index.isOdd?Colors.grey[100]:Colors.white,
                             padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                          alignment: Alignment.centerLeft,
-                          child: Text('${companies[index]['regNo']}')
+                            alignment: Alignment.centerLeft,
+                            child: Text('${clients[index]['clientAddress']}')
                         ),
                         Container(
-                          width: 10.w,
-                          height: 52,
+                            width: 10.w,
+                            height: 52,
                             color: index.isOdd?Colors.grey[100]:Colors.white,
                             padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                          alignment: Alignment.centerLeft,
-                          child: Text('${companies[index]['tax_pin']}')
+                            alignment: Alignment.centerLeft,
+                            child: Text('${clients[index]['clientContactName']}')
+                        ),
+
+                        Container(
+                            width: 10.w,
+                            height: 52,
+                            color: index.isOdd?Colors.grey[100]:Colors.white,
+                            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                            alignment: Alignment.centerLeft,
+                            child:  Text('${clients[index]['clientContactEmail']}'),
                         ),
                         Container(
                           width: 10.w,
@@ -176,33 +186,10 @@ class _CompaniesState extends State<Companies> {
                           color: index.isOdd?Colors.grey[100]:Colors.white,
                           padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                           alignment: Alignment.centerLeft,
-                          child: Text('${companies[index]['country']}'),
+                          child:  Text('${clients[index]['clientContactPhone']}'),
                         ),
-                        Container(
-                            width: 10.w,
-                            height: 52,
-                            color: index.isOdd?Colors.grey[100]:Colors.white,
-                            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                            alignment: Alignment.centerLeft,
-                            child: Text('${companies[index]['town']}')
-                        ),
-                        Container(
-                            width: 10.w,
-                            height: 52,
-                            color: index.isOdd?Colors.grey[100]:Colors.white,
-                            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                            alignment: Alignment.centerLeft,
-                            child: Text('${companies[index]['road']}')
-                        ),
-                        Container(
-                            width: 10.w,
-                            height: 52,
-                            color: index.isOdd?Colors.grey[100]:Colors.white,
-                            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                            alignment: Alignment.centerLeft,
-                            child: companies[index]['logo'] == null ? Text('-'): Image.network(auth.url+'/'+companies[index]['logo']),
-                            // child: Text('${companies[index]['logo']}')
-                        ),
+
+
                       ],
                     ),
                   );
@@ -215,7 +202,6 @@ class _CompaniesState extends State<Companies> {
           ),
         ],
       ),
-
     );
   }
 
@@ -223,13 +209,12 @@ class _CompaniesState extends State<Companies> {
     return [
       _getTitleItemWidget('Name', 10.w),
       _getTitleItemWidget('Email', 10.w),
-      _getTitleItemWidget('Website', 10.w),
-      _getTitleItemWidget('Reg No', 10.w),
-      _getTitleItemWidget('Tax Pin', 10.w),
-      _getTitleItemWidget('Country', 10.w),
-      _getTitleItemWidget('Town', 10.w),
-      _getTitleItemWidget('Road', 10.w),
-      _getTitleItemWidget('Logo', 10.w),
+      _getTitleItemWidget('Phone', 10.w),
+      _getTitleItemWidget('Address', 10.w),
+      _getTitleItemWidget('Contact Person', 10.w),
+      _getTitleItemWidget('Contact Email', 10.w),
+      _getTitleItemWidget('Contact Phone', 10.w),
+
     ];
   }
 
@@ -242,4 +227,5 @@ class _CompaniesState extends State<Companies> {
       child: Text(label, style: const TextStyle(color:Colors.blue,fontWeight: FontWeight.bold)),
     );
   }
+
 }

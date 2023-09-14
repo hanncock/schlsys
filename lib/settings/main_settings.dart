@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
-import 'package:web1/settings/companies.dart';
 import '../models/listViewModel.dart';
 import '../models/modulesViewer.dart';
 import '../style/colors.dart';
@@ -27,22 +26,22 @@ class _SettingsState extends State<Settings> {
     ModuleDetail(
       label: 'Company',
       title: 'Company',
-      icon: Icon(Icons.school,size: 80,),
+      icon: const Icon(Icons.school,size: 80,),
     ),
     ModuleDetail(
       label: 'User',
       title: 'user',
-      icon: Icon(Icons.sms,size: 80,),
+      icon: const Icon(Icons.sms,size: 80,),
     ),
     ModuleDetail(
       label: 'Settings',
       title: 'Settings',
-      icon: Icon(Icons.settings,size: 80,),
+      icon: const Icon(Icons.settings,size: 80,),
     ),
     ModuleDetail(
       label: 'Vehicle',
       title: 'VMS',
-      icon: Icon(Icons.directions_bus_outlined,size: 80,),
+      icon: const Icon(Icons.directions_bus_outlined,size: 80,),
     ),
   ];
 
@@ -62,7 +61,7 @@ class _SettingsState extends State<Settings> {
                   Container(
                     height: 100,
                     alignment: Alignment.topCenter,
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: SizedBox(
                       width: 35,
                       height: 35,
@@ -78,7 +77,7 @@ class _SettingsState extends State<Settings> {
                       color: AppColors.iconGray,
                     ),
                     iconSize: 20,
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                   ),
                   IconButton(
                     onPressed: (){},
@@ -87,7 +86,7 @@ class _SettingsState extends State<Settings> {
                       color: AppColors.iconGray,
                     ),
                     iconSize: 20,
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                   ),
                   IconButton(
                     onPressed: (){},
@@ -96,7 +95,7 @@ class _SettingsState extends State<Settings> {
                       color: AppColors.iconGray,
                     ),
                     iconSize: 20,
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                   ),
                   IconButton(
                     onPressed: (){},
@@ -105,7 +104,7 @@ class _SettingsState extends State<Settings> {
                       color: AppColors.iconGray,
                     ),
                     iconSize: 20,
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                   ),
                   IconButton(
                     onPressed: (){},
@@ -114,7 +113,7 @@ class _SettingsState extends State<Settings> {
                       color: AppColors.iconGray,
                     ),
                     iconSize: 20,
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                   ),
                   IconButton(
                     onPressed: (){},
@@ -123,13 +122,13 @@ class _SettingsState extends State<Settings> {
                       color: AppColors.iconGray,
                     ),
                     iconSize: 20,
-                    padding: EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                   )
                 ],
               ),
             ),
           ),
-          Container(
+          SizedBox(
             height: height,
             width: width * 0.8,
             child: CustomTabView(
@@ -172,13 +171,13 @@ class _SettingsState extends State<Settings> {
                   //   return Card(child: Text(settingsModules[index].label),);
                   // },):
                   modules[index] == 'Company'?
-                  CreateCompany(sessionStateStream: widget.sessionStateStream,):
+                  CreateCompany(sessionStateStream: widget.sessionStateStream,companyDetails: null,):
                   modules[index] == 'User'?
-                  Createuser(sessionStateStream: widget.sessionStateStream,):
+                  Createuser(sessionStateStream: widget.sessionStateStream,userDetails: null,):
                   modules[index] == "Settings" ?
                   Settings(sessionStateStream: widget.sessionStateStream,):
                   modules[index] == "SMS" ?
-                      Text(''):
+                      const Text(''):
                   // Messaging(sessionStateStream: widget.sessionStateStream,):
                   Text('first ${modules[index]}')
               ),

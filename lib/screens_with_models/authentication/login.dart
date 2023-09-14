@@ -1,17 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:sizer/sizer.dart';
-import 'package:web1/allmodules.dart';
 import 'package:web1/screens_with_models/authentication/login_model.dart';
 import 'package:web1/service/apis.dart';
-import 'package:web1/smsscreen/sms.dart';
 import 'package:web1/style/colors.dart';
-import 'package:web1/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web1/wrapper.dart';
 
 import '../../widgets/loading.dart';
@@ -19,7 +13,7 @@ import '../../widgets/loading.dart';
 
 class Login extends StatefulWidget {
   final StreamController<SessionState> sessionStateStream;
-  Login({Key? key, required this.sessionStateStream}) : super(key: key);
+  const Login({Key? key, required this.sessionStateStream}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
@@ -38,14 +32,14 @@ class _LoginState extends State<Login> {
       body: Align(
         alignment: Alignment.center,
         child: ConstrainedBox(
-          constraints: new BoxConstraints(
+          constraints: BoxConstraints(
             // minwidth: MediaQuery.of(context).size.width * 0.35,
             // minWidth: width * 0.4,
             // maxHeight: 700.0,
             maxWidth: 50.h,
           ),
           child: Container(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: AppColors.primaryBg
@@ -60,12 +54,12 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Login', style: TextStyle(fontSize: 5.sp),),
-                    SizedBox(height: 50,),
+                    const SizedBox(height: 50,),
                     Padding(
                       padding: const EdgeInsets.all(14.0),
                       child: TextFormField(
                         validator: (val) =>
-                        val!.isEmpty || val == null
+                        val!.isEmpty
                             ? "Username"
                             : null,
                         onChanged: (val) {
@@ -111,7 +105,7 @@ class _LoginState extends State<Login> {
                                   obscuretext = !obscuretext;
                                 });
                               },
-                              child: Icon(Icons.visibility_off_outlined,
+                              child: const Icon(Icons.visibility_off_outlined,
                                 color: Colors.grey,)
                           ),
                           fillColor: Colors.blueGrey[50],
@@ -133,7 +127,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     Row(
                       children: [
                         Expanded(
@@ -156,10 +150,11 @@ class _LoginState extends State<Login> {
                                     var resu = await auth.login(
                                         username, password);
                                     // var resu = await auth.ff();
+                                    print(resu);
                                     Navigator.of(context).pop();
 
                                     if (resu is User) {
-                                      SnackBar(
+                                      const SnackBar(
                                         backgroundColor: Colors.green,
                                         content: Text('Login Success'),
                                       );
@@ -172,6 +167,7 @@ class _LoginState extends State<Login> {
                                       //     textColor: Colors.white,
                                       //     fontSize: 16.0
                                       // );
+                                      showReturnMessage(context, Colors.green,'Login Success');
                                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>Messaging(sessionStateStream: widget.sessionStateStream)));
                                       Navigator.push(context, MaterialPageRoute(
                                           builder: (_) => Wrapper(
@@ -190,13 +186,12 @@ class _LoginState extends State<Login> {
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    primary: Colors.deepPurple,
-                                    onPrimary: Colors.white,
+                                    foregroundColor: Colors.white, backgroundColor: Colors.deepPurple,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10)
                                     )
                                 ),
-                                child: Padding(
+                                child: const Padding(
                                   padding: EdgeInsets.all(20),
                                   child: Text('Login'),
                                 ),

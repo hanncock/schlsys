@@ -122,6 +122,7 @@
 // }
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -140,7 +141,7 @@ class Dialogutil{
     //
     showDialog(
         context: context,
-        builder: (_) => LoadingSpinCircle());
+        builder: (_) => const LoadingSpinCircle());
   }
 }
 
@@ -155,9 +156,9 @@ class MyApp extends StatelessWidget {
   final sessionStateStream = StreamController<SessionState>();
 
   clearlogs()async{
-    SharedPreferences _prefs = await  SharedPreferences.getInstance();
-    _prefs.get('Userdata');
-    _prefs.clear();
+    SharedPreferences prefs = await  SharedPreferences.getInstance();
+    prefs.get('Userdata');
+    prefs.clear();
   }
 
   popup(BuildContext context){
@@ -214,10 +215,14 @@ class MyApp extends StatelessWidget {
       child: Sizer(
         builder: (context,orientation,deviceType) {
           return MaterialApp(
+
             debugShowCheckedModeBanner: false,
             navigatorKey: _navigatorKey,
             title: 'Flutter Demo',
             theme: ThemeData(
+              textTheme: GoogleFonts.openSansTextTheme(),
+              // textTheme: GoogleFonts.quicksandTextTheme(),
+              // fontFamily: ,
                 primarySwatch: Colors.blue,
                 scaffoldBackgroundColor: AppColors.primaryBg
             ),

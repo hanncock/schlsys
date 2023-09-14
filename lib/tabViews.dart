@@ -9,7 +9,7 @@ class CustomTabView extends StatefulWidget {
   final ValueChanged<double> onScroll;
   final int modinitPosition;
 
-  CustomTabView({
+  const CustomTabView({super.key, 
     required this.itemCount,
     required this.tabBuilder,
     required this.pageBuilder,
@@ -51,21 +51,17 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
       controller.removeListener(onPositionChange);
       controller.dispose();
 
-      if (widget.modinitPosition != null) {
-        _currentPosition = widget.modinitPosition;
-      }
+      _currentPosition = widget.modinitPosition;
 
       if (_currentPosition > widget.itemCount - 1) {
         _currentPosition = widget.itemCount - 1;
         _currentPosition = _currentPosition < 0 ? 0 :
         _currentPosition;
-        if (widget.onPositionChange is ValueChanged<int>) {
-          WidgetsBinding.instance.addPostFrameCallback((_){
-            if(mounted) {
-              widget.onPositionChange(_currentPosition);
-            }
-          });
-        }
+        WidgetsBinding.instance.addPostFrameCallback((_){
+          if(mounted) {
+            widget.onPositionChange(_currentPosition);
+          }
+        });
       }
 
       _currentCount = widget.itemCount;
@@ -78,9 +74,10 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
         controller.addListener(onPositionChange);
         controller.animation?.addListener(onScroll);
       });
-    } else if (widget.modinitPosition != null) {
+    } else {
       controller.animateTo(widget.modinitPosition);
     }
+
 
     super.didUpdateWidget(oldWidget);
   }
@@ -140,15 +137,11 @@ class _CustomTabsState extends State<CustomTabView> with TickerProviderStateMixi
   onPositionChange() {
     if (!controller.indexIsChanging) {
       _currentPosition = controller.index;
-      if (widget.onPositionChange is ValueChanged<int>) {
-        widget.onPositionChange(_currentPosition);
-      }
+      widget.onPositionChange(_currentPosition);
     }
   }
 
   onScroll() {
-    if (widget.onScroll is ValueChanged<double>) {
-      widget.onScroll(controller.animation!.value);
-    }
+    widget.onScroll(controller.animation!.value);
   }
 }
