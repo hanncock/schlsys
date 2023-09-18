@@ -4,6 +4,7 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:sizer/sizer.dart';
 import 'package:web1/custom_tab/keepAlive.dart';
 import 'package:web1/custom_tab/tabsClass.dart';
+import 'package:web1/invoicing/item_for_sale.dart';
 import 'package:web1/messaging/Email/email.dart';
 import 'package:web1/messaging/Sms/sms.dart';
 import 'package:web1/settings/companies.dart';
@@ -11,6 +12,7 @@ import 'package:web1/settings/create_company.dart';
 import 'package:web1/settings/users_list.dart';
 import 'package:web1/wrapper.dart';
 
+import '../invoicing/invoice_list.dart';
 import '../settings/clientSetup.dart';
 
 class CustomSet extends StatefulWidget {
@@ -120,6 +122,16 @@ class _CustomSetState extends State<CustomSet>  with TickerProviderStateMixin{
       label: 'Messaging',
       screen: Messaging(sessionStateStream: widget.sessionStateStream,),
       vicons: const Icon(Icons.message),
+    ),
+    Tabler(
+      label: 'Invoice',
+      screen: InvoicingList(sessionStateStream: widget.sessionStateStream,),
+      vicons: const Icon(Icons.receipt_long),
+    ),
+    Tabler(
+      label: 'Items',
+      screen: Items(sessionStateStream: widget.sessionStateStream,),
+      vicons: const Icon(Icons.local_grocery_store),
     ),
 
   ];

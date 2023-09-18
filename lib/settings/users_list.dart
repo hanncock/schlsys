@@ -125,7 +125,12 @@ class _UsersListState extends State<UsersList> {
                         alignment: Alignment.centerLeft,
                         child: Row(
                           children: [
-                            const CircleAvatar(backgroundColor: Colors.brown,radius: 18,),
+                            CircleAvatar(
+                              backgroundColor: Colors.brown,
+                              radius: 18,
+                              // backgroundImage: users[index]['photo']== null ?  :NetworkImage("${users[index]['photo']}"),
+                              child: users[index]['photo'] == null ? Text('-'): Image.network(auth.url+'/'+users[index]['photo']),
+                            ),
                             SizedBox(width: 1.w,),
                             Text('${users[index]['fName']}\t' '${users[index]['sName']}'),
                           ],

@@ -68,6 +68,38 @@ class AuthService{
 
   }
 
+  addItems(itemId,itemName,itemDescription,itemUnitPrice)async{
+
+    var all = '$url/api/items/add';
+    Map data = {
+      "companyId":Userdata['allowedCompanies'][0]['companyId'],
+      "itemName":itemName,
+      "id":itemId,
+      "description": itemDescription,
+      "price": itemUnitPrice
+    };
+
+    var send = jsonEncode(data);
+    print(send);
+    var response = await http.post(Uri.parse(all), body: send, headers: headers);
+    print(response.body);
+    var responseData = jsonDecode(response.body);
+    return responseData;
+
+  }
+
+  getItems(companyId)async{
+    String getsmsConfigs = "$url/api/items/list?companyId="+companyId;
+    print(getsmsConfigs);
+    try{
+      var response =  await get(Uri.parse(getsmsConfigs));
+      var jsondata = jsonDecode(response.body);
+      return jsondata;
+    }catch(e){
+      return e.toString();
+    }
+  }
+
   createClient(companyId,clientName,clientEmail,clientPhone,clientContactName,clientContactPhone,clientContactEmail,clientAddress,clientId)async{
     var all = "$url/api/clients/setup";
     print(all);
@@ -143,7 +175,7 @@ class AuthService{
   }
 
 
-  userAdd(String? id,fName,oNames,idNo,email,phoneNum,gender)async{
+  userAdd(String? id,fName,oNames,idNo,email,phoneNum,gender,userphoto,imagechange,prevPath)async{
 
     print('adding users');
     var all = '$url/api/users/add';
@@ -156,6 +188,9 @@ class AuthService{
       "email": email,
       "phoneNum": phoneNum,
       "pass": "sokeagain",
+      "imageChange":imagechange,
+      "prevPath":prevPath,
+      "photo":userphoto,
       "user": currentUser
     };
     print(data);

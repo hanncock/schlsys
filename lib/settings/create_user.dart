@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:sizer/sizer.dart';
 import 'package:web1/widgets/loading.dart';
-
+import 'package:mime/mime.dart';
 import '../wrapper.dart';
 
 class Createuser extends StatefulWidget {
@@ -30,6 +33,20 @@ class _CreateuserState extends State<Createuser> {
   List countries = ['Kenya', 'Uganda','Tanzania'];
   late var country = widget.userDetails?[0]['country'] ?? '-';
   late var gender = widget.userDetails?[0]['gender'] ?? '-' ;
+  late var userphoto = widget.userDetails?[0]['photo'] == 'NUll' ? false : widget.userDetails?[0]['photo'];
+  late var prevPath = widget.userDetails?[0]['photo'] == 'NUll' ? false : widget.userDetails?[0]['photo'];
+
+  var filePath;
+
+
+  late Uint8List selectedImageInByte;
+
+  bool imageset = false;
+  bool imagechange = false;
+  var fileEncoded;
+
+
+
   var dob;
   final userForm = GlobalKey<FormState>();
 
@@ -517,12 +534,19 @@ class _CreateuserState extends State<Createuser> {
                             padding: EdgeInsets.all(3.0),
                             child: Text('Profile Photo',),
                           ),
-                          Container(
-                            width: 15.w,
-                            height: 25.h,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(10)
+                          InkWell(
+                            onTap: (){
+                              captureImage();
+                            },
+                            child: Container(
+                              width: 15.w,
+                              height: 25.h,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: imagechange ? Image.memory(selectedImageInByte) :userphoto == null ? imageset ? Text('load from file') : Center(child: Icon(Icons.camera_alt_outlined)) : Image.network(auth.url+'/'+userphoto),
+
                             ),
                           ),
                         ],
@@ -543,7 +567,9 @@ class _CreateuserState extends State<Createuser> {
                     onPressed: () async{
                       if (userForm.currentState!.validate()) {
                         buildShowDialog(context);
-                        var user = await auth.userAdd(id, sirName, oNames, idNo, email, phoneNum, gender);
+                        var user = await auth.userAdd(id, sirName, oNames, idNo, email, phoneNum, gender,
+                            fileEncoded ?? userphoto,imagechange,prevPath
+                        );
                         if(user['data'] == 'Success'){
                           Navigator.of(context).pop();
                           Navigator.of(context).pop();
@@ -567,5 +593,25 @@ class _CreateuserState extends State<Createuser> {
           ),
         ),
       );
+  }
+
+  captureImage()async {
+    var picked = await FilePicker.platform.pickFiles();
+    if (picked != null) {
+      print(picked.files.first.name);
+
+      setState((){
+        imagechange = true;
+        imageset = true;
+        selectedImageInByte = picked.files.first.bytes!;
+      });
+
+      // String base64String = base64Encode(selectedImageInByte);
+      // print(selectedImageInByte);
+      var mimeType = lookupMimeType(picked.files.first.name);
+      fileEncoded =  "data:${mimeType};base64,${base64Encode(selectedImageInByte!)}";
+      // print(fileEncoded);
+      // print('her is file mime ${mimeType}');
+    }
   }
 }

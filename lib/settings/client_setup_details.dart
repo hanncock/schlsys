@@ -403,158 +403,257 @@ class _ClientSetupDetailsState extends State<ClientSetupDetails> {
               child: Row(
                 children: [
                   Container(
-                    child: Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(5.0),
-                              child: Text('Branch Name',),
-                            ),
-                            Container(
-                              width: 10.w,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius:  BorderRadius.circular(10),
-                              ),
-                              child: TextFormField(
-                                validator: (val) => val!.isEmpty ? "Branch Name" : null,
-                                onChanged: (val){
-                                  setState(() {
-                                    branchName = val;
-                                  });
-                                },
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Branch Name',
-                                  contentPadding: EdgeInsets.all(15),
-                                ),
-                              ),
+                    width: 50.w,
+                    child: InputDecorator(
+                      decoration: InputDecoration(
+                        labelText: 'CLIENT BRANCHES DETAILS',
+                        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
 
-                            ),
-                          ],
                         ),
-                        const SizedBox(width: 10,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(5.0),
-                              child: Text('Contact',),
-                            ),
-                            Container(
-                              width: 10.w,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius:  BorderRadius.circular(10),
-                              ),
-                              child: TextFormField(
-                                validator: (val) => val!.isEmpty ? "Contact" : null,
-                                onChanged: (val){
-                                  setState(() {
-                                    branchContact = val;
-                                  });
-                                },
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Contact',
-                                  contentPadding: EdgeInsets.all(15),
+                      ),
+                      child: Column(
+                        children: [
+                          Card(
+                            color: Colors.blueAccent.withOpacity(0.5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text('Branch Setup ',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
                                 ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: Text('Branch Name',),
+                                  ),
+                                  Container(
+                                    width: 10.w,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[100],
+                                      borderRadius:  BorderRadius.circular(10),
+                                    ),
+                                    child: TextFormField(
+                                      validator: (val) => val!.isEmpty ? "Branch Name" : null,
+                                      onChanged: (val){
+                                        setState(() {
+                                          branchName = val;
+                                        });
+                                      },
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Branch Name',
+                                        contentPadding: EdgeInsets.all(15),
+                                      ),
+                                    ),
+
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(width: 10,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: Text('Contact',),
+                                  ),
+                                  Container(
+                                    width: 10.w,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[100],
+                                      borderRadius:  BorderRadius.circular(10),
+                                    ),
+                                    child: TextFormField(
+                                      validator: (val) => val!.isEmpty ? "Contact" : null,
+                                      onChanged: (val){
+                                        setState(() {
+                                          branchContact = val;
+                                        });
+                                      },
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Contact',
+                                        contentPadding: EdgeInsets.all(15),
+                                      ),
+                                    ),
+
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(width: 10,),
+
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: Text('Branch Email',),
+                                  ),
+                                  Container(
+                                    width: 10.w,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[100],
+                                      borderRadius:  BorderRadius.circular(10),
+                                    ),
+                                    child: TextFormField(
+                                      validator: (val) => val!.isEmpty ? "Branch Email" : null,
+                                      onChanged: (val){
+                                        setState(() {
+                                          branchEmail = val;
+                                        });
+                                      },
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Branch Email',
+                                        contentPadding: EdgeInsets.all(15),
+                                      ),
+                                    ),
+
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(width: 10,),
+
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.all(5.0),
+                                    child: Text('Branch Location',),
+                                  ),
+                                  Container(
+                                    width: 10.w,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[100],
+                                      borderRadius:  BorderRadius.circular(10),
+                                    ),
+                                    child: TextFormField(
+                                      validator: (val) => val!.isEmpty ? "Branch Location" : null,
+                                      onChanged: (val){
+                                        setState(() {
+                                          branchLocation = val;
+                                        });
+                                      },
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'Branch Location',
+                                        contentPadding: EdgeInsets.all(15),
+                                      ),
+                                    ),
+
+                                  ),
+                                ],
                               ),
 
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 10,),
 
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(5.0),
-                              child: Text('Branch Email',),
-                            ),
-                            Container(
-                              width: 10.w,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius:  BorderRadius.circular(10),
-                              ),
-                              child: TextFormField(
-                                validator: (val) => val!.isEmpty ? "Branch Email" : null,
-                                onChanged: (val){
-                                  setState(() {
-                                    branchEmail = val;
-                                  });
-                                },
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Branch Email',
-                                  contentPadding: EdgeInsets.all(15),
-                                ),
-                              ),
-
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 10,),
-
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(5.0),
-                              child: Text('Branch Location',),
-                            ),
-                            Container(
-                              width: 10.w,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                borderRadius:  BorderRadius.circular(10),
-                              ),
-                              child: TextFormField(
-                                validator: (val) => val!.isEmpty ? "Branch Location" : null,
-                                onChanged: (val){
-                                  setState(() {
-                                    branchLocation = val;
-                                  });
-                                },
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Branch Location',
-                                  contentPadding: EdgeInsets.all(15),
-                                ),
-                              ),
-
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 10,),
-
-                        ElevatedButton(
-                            onPressed: ()async{
-                              var resu = await auth.clientBranchesAdd(branchId,clientId,branchName,branchContact,branchEmail,branchLocation);
-                              print(resu);
-                            },
-                            child: const Text('Add')
-                        )
-                      ],
+                            ],
+                          ),
+                          SizedBox(height :2.w),
+                          ElevatedButton(
+                              onPressed: ()async{
+                                var resu = await auth.clientBranchesAdd(branchId,clientId,branchName,branchContact,branchEmail,branchLocation);
+                                // print(resu);\
+                                if(resu['data'] == 'Success'){
+                                  getBranches();
+                                }
+                              },
+                              child: const Padding(padding: EdgeInsets.all(8),
+                                child: Text('Add'),)
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                  // const Divider(),
+                  SizedBox(width:2.w),
                   Container(
-                    height: 25.h,
-                    decoration: const BoxDecoration(
+                    width: 30.w,
+                    child: Column(
+                      children: [
+                        Card(
+                          color: Colors.blueAccent.withOpacity(0.5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('Branches  ( ${branches.length})',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
+                              ),
+                            ],
+                          ),
+                        ),
 
+                        Container(
+                          width :30.w,
+                          height: 25.h,
+                          decoration: const BoxDecoration(
+
+                          ),
+                          child: ListView.builder(
+                              itemCount: branches.length,
+                              itemBuilder: (BuildContext context, index){
+                                var branch = branches[index];
+                                return Card(
+                                  color: Colors.grey[100],
+                                  elevation: 2,
+                                  shadowColor: Colors.black,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text('${branch['branchName']}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,color: Colors.blue
+                                              ),),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.call,color: Colors.blue,),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text('${branch['branchContact']}',
+                                                style: TextStyle(fontWeight: FontWeight.bold),),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.mail,color: Colors.brown,),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text('${branch['branchEmail']}'),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.location_pin,color: Colors.orange,),
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text('${branch['branchLocation']}'),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
+                      ],
                     ),
-                    child: ListView.builder(
-                        itemCount: 1,
-                        itemBuilder: (BuildContext context, index){
-                          return Card(
-                            // child: ,
-                          );
-                        }),
                   )
 
                 ],
